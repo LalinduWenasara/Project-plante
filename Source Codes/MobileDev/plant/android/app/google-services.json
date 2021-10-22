@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "168976377918",
+    "firebase_url": "https://iot2-950b2-default-rtdb.firebaseio.com",
+    "project_id": "iot2-950b2",
+    "storage_bucket": "iot2-950b2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:168976377918:android:eeff97d956977458e6496f",
+        "android_client_info": {
+          "package_name": "com.lalinduwenasara.plant"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "168976377918-ujb2f4n5ep5ilcgp0vala5o4im6ruffr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeDavNFr1GwUZ3mrQn2BErFe6jybSawMU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "168976377918-ujb2f4n5ep5ilcgp0vala5o4im6ruffr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

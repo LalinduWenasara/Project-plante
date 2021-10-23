@@ -7,7 +7,7 @@ import 'package:plant/screens/login_screen.dart';
 import 'package:plant/screens/registration_screen.dart';
 import 'package:plant/screens/welcome_screen.dart';
 import 'package:plant/screens/home_screen.dart';
-
+import 'package:plant/screens/login_google_screen.dart';
 
 
 void main() async{
@@ -21,14 +21,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: WelcomeScreen.id,
+      initialRoute: LoginWithGoogle.id,
       routes: {
         WelcomeScreen.id: (context) => WelcomeScreen(),
         LoginScreen.id: (context) => LoginScreen(),
         RegistrationScreen.id: (context) => RegistrationScreen(),
         ChatScreen.id: (context) => ChatScreen(),
         HomeScreen.id: (context) => HomeScreen(),
-
+        LoginWithGoogle.id: (context) => LoginWithGoogle(),
         Home5.id: (context) => Home5(),
       },
     );

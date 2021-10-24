@@ -3,6 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+
+
+final FirebaseAuth _auth = FirebaseAuth.instance;
+final GoogleSignIn googleSignIn = GoogleSignIn();
+
 class LoginWithGoogle extends StatefulWidget {
   static const String id = 'l_Google';
 
@@ -23,17 +28,20 @@ class _LoginWithGoogleState extends State<LoginWithGoogle> {
         children: [
           Text('user email:'),
           Text(userEmail),
-
-          ElevatedButton(onPressed: ()
-          async{
-            await signInWithGoogle();
-            setState(() {
-
-            });
-          }, child: Text('Login')),
-          ElevatedButton(onPressed: (){}, child: Text('Logout')),
-
-
+          ElevatedButton(
+              onPressed: () async {
+                await signInWithGoogle();
+                setState(() {});
+              },
+              child: Text('Login')),
+          ElevatedButton(
+              onPressed: () async {
+                await signOutGoogle();
+                setState(() {
+                  userEmail = '';
+                });
+              },
+              child: Text('Logout')),
         ],
       ),
     );
@@ -44,7 +52,8 @@ class _LoginWithGoogleState extends State<LoginWithGoogle> {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
     // Obtain the auth details from the request
-    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
 
     // Create a new credential
     final credential = GoogleAuthProvider.credential(
@@ -52,13 +61,13 @@ class _LoginWithGoogleState extends State<LoginWithGoogle> {
       idToken: googleAuth?.idToken,
     );
 
-    userEmail =googleUser!.email;
-
-
+    userEmail = googleUser!.email;
 
     // Once signed in, return the UserCredential
-    return await FirebaseAuth.instance.signInWithCredential(credential);
+    return await _auth.signInWithCredential(credential);
   }
 
-
+  Future<void> signOutGoogle() async {
+    await googleSignIn.signOut();
+  }
 }

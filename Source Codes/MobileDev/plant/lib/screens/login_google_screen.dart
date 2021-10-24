@@ -24,16 +24,22 @@ class _LoginWithGoogleState extends State<LoginWithGoogle> {
       appBar: AppBar(
         title: Text("login with google"),
       ),
-      body: Row(
+      body: Column(
         children: [
-          Text('user email:'),
-          Text(userEmail),
+          Row(
+            children: [
+              Text('user email:'),
+              Text(userEmail),
+
+            ],
+          ),
           ElevatedButton(
               onPressed: () async {
                 await signInWithGoogle();
                 setState(() {});
+
               },
-              child: Text('Login')),
+              child: Text('Continue with Google')),
           ElevatedButton(
               onPressed: () async {
                 await signOutGoogle();

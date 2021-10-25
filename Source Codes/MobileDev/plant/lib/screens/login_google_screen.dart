@@ -1,9 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-
+import 'home_screen2.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -20,34 +21,40 @@ class _LoginWithGoogleState extends State<LoginWithGoogle> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        title: Text("login with google"),
-      ),
       body: Column(
         children: [
-          Row(
-            children: [
-              Text('user email:'),
-              Text(userEmail),
-
-            ],
+          Container(
+            height: size.height * 0.8,
+            decoration: BoxDecoration(
+              color: Colors.blue,
+              borderRadius: BorderRadius.circular(20.0),
+            ),
           ),
-          ElevatedButton(
-              onPressed: () async {
-                await signInWithGoogle();
-                setState(() {});
-
-              },
-              child: Text('Continue with Google')),
-          ElevatedButton(
-              onPressed: () async {
-                await signOutGoogle();
-                setState(() {
-                  userEmail = '';
-                });
-              },
-              child: Text('Logout')),
+          Center(
+              child: OutlinedButton.icon(
+            icon: Icon(
+              FontAwesomeIcons.google,
+              color: Colors.red.shade500,
+            ),
+            label: Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Text(
+                'Continue with Google',
+                style: TextStyle(color: Colors.black54),
+              ),
+            ),
+            onPressed: () async {
+              await signInWithGoogle();
+              setState(() {});
+              Navigator.pushNamed(context, Home5.id);
+            },
+            style: OutlinedButton.styleFrom(
+              primary: Colors.white,
+              side: BorderSide(color: Colors.black54, width: 1),
+            ),
+          )),
         ],
       ),
     );

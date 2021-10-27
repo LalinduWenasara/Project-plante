@@ -46,9 +46,20 @@ class _Home5State extends State<Home5> {
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(title: Text('welcome'),),
+
  body: Column(
    children: [
+     Container(
+       height: size.height*0.1,
+
+       decoration: BoxDecoration(
+
+         color: Colors.teal,
+         borderRadius: BorderRadius.circular(20.0),
+
+       ),
+
+     ),
      Container(
        height: size.height*0.3,
        child:Center(child: Column(
@@ -91,7 +102,7 @@ class _Home5State extends State<Home5> {
 
 
      Container(
-       height: size.height*0.3,
+       height: size.height*0.4,
 
        decoration: BoxDecoration(
 

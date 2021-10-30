@@ -2,7 +2,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:plant/constants.dart';
 import 'package:plant/screens/login_google_screen.dart';
+
+import '../reusable.dart';
 
 
 class Home5 extends StatefulWidget {
@@ -103,10 +106,48 @@ class _Home5State extends State<Home5> {
 
      Container(
        height: size.height*0.4,
+       width: size.width,
+       child: Column(
+
+         children: [
+           Center(child: Text('Services')),
+
+           Row(
+             children: [
+               ReusableCard_2(colour: kAquaHaze,cardChild: Text('gaag'),),
+               ReusableCard_2(colour: kAquaHaze,cardChild: Text('gaag'),),
+               ReusableCard_2(colour: kAquaHaze,cardChild: Text('gaag'),),
+             ],
+           ),
+
+           Row(
+             children: [
+               ReusableCard_2(colour: kAquaHaze,cardChild: Text('gaag'),),
+               ReusableCard_2(colour: kAquaHaze,cardChild: Text('gaag'),),
+               ReusableCard_2(colour: kAquaHaze,cardChild: Text('gaag'),),
+             ],
+           ),
+
+
+
+
+         ],
+       ),
+
+
+
+
+
+
+
+
+
+
+
 
        decoration: BoxDecoration(
 
-         color: Colors.teal,
+         color: Colors.red,
          borderRadius: BorderRadius.circular(20.0),
 
        ),

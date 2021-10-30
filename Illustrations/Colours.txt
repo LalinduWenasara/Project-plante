@@ -1,0 +1,25 @@
+Aqua Haze
+#EAF3F3
+
+Black
+#040404
+
+Harlequin
+#26F80E
+
+Boulder
+#747474
+
+
+
+Aqua Haze
+#EBF3F3
+
+Harlequin
+#24FC10
+
+Heavy Metal
+#212321
+
+Cyan / Aqua
+#2EFCFC

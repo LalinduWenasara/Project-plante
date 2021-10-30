@@ -5,6 +5,7 @@ import 'package:plant/screens/chat_screen.dart';
 import 'package:plant/screens/home_screen2.dart';
 import 'package:plant/screens/login_screen.dart';
 import 'package:plant/screens/registration_screen.dart';
+import 'package:plant/screens/welcome_plante_screen.dart';
 import 'package:plant/screens/welcome_screen.dart';
 import 'package:plant/screens/home_screen.dart';
 import 'package:plant/screens/login_google_screen.dart';
@@ -21,7 +22,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: LoginWithGoogle.id,
+      debugShowCheckedModeBanner: false,
+      initialRoute: WelcomePlante.id,
       routes: {
         WelcomeScreen.id: (context) => WelcomeScreen(),
         LoginScreen.id: (context) => LoginScreen(),
@@ -30,6 +32,7 @@ class MyApp extends StatelessWidget {
         HomeScreen.id: (context) => HomeScreen(),
         LoginWithGoogle.id: (context) => LoginWithGoogle(),
         Home5.id: (context) => Home5(),
+        WelcomePlante.id:(context)=> WelcomePlante(),
       },
     );
   }

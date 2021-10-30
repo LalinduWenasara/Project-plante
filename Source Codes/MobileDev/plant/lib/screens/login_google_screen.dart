@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
+import 'package:plant/constants.dart';
 import 'home_screen2.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -28,7 +28,7 @@ class _LoginWithGoogleState extends State<LoginWithGoogle> {
           Container(
             height: size.height * 0.8,
             decoration: BoxDecoration(
-              color: Colors.blue,
+              color: kBlack,
               borderRadius: BorderRadius.circular(20.0),
             ),
           ),

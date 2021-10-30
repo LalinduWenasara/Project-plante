@@ -40,11 +40,18 @@ const kInputsTextDecoration = InputDecoration(
 const kPrimaryColor = Color(0xFF0C9869);
 const kTextColor = Color(0xFF3C4046);
 const kBackgroundColor = Color(0xFFF9F8FD);
-
 const double kDefaultPadding = 20.0;
-
-
-
 // Colors that we use in home
-
 const kHomeAppbarColor = Color(0xFF0C9869);
+
+
+
+
+// colours for google login
+const kAquaHaze = Color(0xFFEAF3F3);
+const kHarlequin = Color(0xFF26F80E);
+const kBoulder = Color(0xFF747474);
+const kAqua = Color(0xFF2EFCFC);
+const kHeavyMetal = Color(0xFF212321);
+const kBlack = Color(0xFF040404);
+

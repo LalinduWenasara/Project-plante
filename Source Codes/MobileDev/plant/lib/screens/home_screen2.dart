@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:plant/constants.dart';
 import 'package:plant/screens/login_google_screen.dart';
+import 'package:plant/screens/select_plant_screen.dart';
 
 import '../reusable.dart';
 
@@ -114,17 +115,25 @@ class _Home5State extends State<Home5> {
 
            Row(
              children: [
-               ReusableCard_2(colour: kAquaHaze,cardChild: Text('gaag'),),
-               ReusableCard_2(colour: kAquaHaze,cardChild: Text('gaag'),),
-               ReusableCard_2(colour: kAquaHaze,cardChild: Text('gaag'),),
+               ReusableCard_2(colour: Colors.green,cardChild: Padding(
+                 padding: const EdgeInsets.all(10.0),
+                 
+                 child: Container(
+
+                     height: size.height*0.1,
+
+                     child: Text('Select Plant')),
+               ),onPress: (){ Navigator.pushNamed(context, SelectPlant.id);},),
+               ReusableCard_2(colour: kAquaHaze,cardChild: Text('dummy card'),),
+               ReusableCard_2(colour: kAquaHaze,cardChild: Text('dummy card'),),
              ],
            ),
 
            Row(
              children: [
-               ReusableCard_2(colour: kAquaHaze,cardChild: Text('gaag'),),
-               ReusableCard_2(colour: kAquaHaze,cardChild: Text('gaag'),),
-               ReusableCard_2(colour: kAquaHaze,cardChild: Text('gaag'),),
+               ReusableCard_2(colour: kAquaHaze,cardChild: Text('dummy card'),),
+               ReusableCard_2(colour: kAquaHaze,cardChild: Text('dummy card'),),
+               ReusableCard_2(colour: kAquaHaze,cardChild: Text('dummy card'),),
              ],
            ),
 

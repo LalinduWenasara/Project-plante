@@ -51,7 +51,7 @@ class _LoginWithGoogleState extends State<LoginWithGoogle> {
               Navigator.pushNamed(context, Home5.id);
             },
             style: OutlinedButton.styleFrom(
-              primary: Colors.white,
+              primary: kGreenE,
               side: BorderSide(color: Colors.black54, width: 1),
             ),
           )),

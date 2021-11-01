@@ -54,4 +54,8 @@ const kBoulder = Color(0xFF747474);
 const kAqua = Color(0xFF2EFCFC);
 const kHeavyMetal = Color(0xFF212321);
 const kBlack = Color(0xFF040404);
+const kGreenE = Color(0xFFC7CDB6);
+
+
+
 

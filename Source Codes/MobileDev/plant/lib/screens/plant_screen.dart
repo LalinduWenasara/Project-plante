@@ -4,18 +4,20 @@ import 'package:flutter/material.dart';
 import '../reusable.dart';
 
 
-class SelectPlant extends StatefulWidget {
-  static const String id = 'selectPlant';
+
+class PlantScreen extends StatefulWidget {
+  static const String id = 'plantscreen';
 
   @override
-  _SelectPlantState createState() => _SelectPlantState();
+  _PlantScreenState createState() => _PlantScreenState();
 }
 
-class _SelectPlantState extends State<SelectPlant> {
+class _PlantScreenState extends State<PlantScreen> {
+  late String plantname;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Select The Plant'),),
+      appBar: AppBar(title: Text(plantname),),
       body: Column(
         children: [
           Padding(
@@ -30,3 +32,10 @@ class _SelectPlantState extends State<SelectPlant> {
     );
   }
 }
+
+
+
+
+
+
+

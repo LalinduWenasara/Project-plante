@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:plant/screens/mysplashscreen.dart';
 
 import '../reusable.dart';
 
@@ -26,7 +27,7 @@ class _PlantScreenState extends State<PlantScreen> {
               borderRadius: BorderRadius.circular(20),
             ),
           ),
-          ReusableCard_2(colour: Colors.amber,onPress: (){},cardChild: Text('Tomato'),),
+          ReusableCard_2(colour: Colors.amber,onPress: (){Navigator.pushNamed(context,MySplashScreen.id);},cardChild: Text('Tomato'),),
         ],
       ),
     );

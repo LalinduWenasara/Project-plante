@@ -1,0 +1,4 @@
+0 healthy
+1 common_rust
+2 Northern_Leaf_Blight
+3 Gray_leaf_spot

@@ -10,6 +10,7 @@ import 'package:plant/screens/welcome_plante_screen.dart';
 import 'package:plant/screens/welcome_screen.dart';
 import 'package:plant/screens/home_screen.dart';
 import 'package:plant/screens/login_google_screen.dart';
+import 'package:plant/screens/mysplashscreen.dart';
 
 
 void main() async{
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
         Home5.id: (context) => Home5(),
         WelcomePlante.id:(context)=> WelcomePlante(),
         SelectPlant.id:(context)=> SelectPlant(),
+        MySplashScreen.id:(context)=> MySplashScreen(),
       },
     );
   }

@@ -36,6 +36,7 @@ class _HomeState extends State<Home> {
     );
     setState(() {
       output = res!;
+      print(output);
       _loading = false;
     });
   }
@@ -133,18 +134,35 @@ class _HomeState extends State<Home> {
                           output != null
                               ? Text(
                                   '${output[0]['label']}',
-                                  style: TextStyle(
+
+                              style: TextStyle(
                                       color: Colors.white, fontSize: 15.0),
                                 )
                               : Container(),
                           SizedBox(
                             height: 10.0,
+                          ),
+                          output != null
+                              ? Text(
+                            '${output[0]['index']}',
+
+                            style: TextStyle(
+                                color: Colors.white, fontSize: 15.0),
                           )
+                              : Container(),
+                          output != null
+                              ? Text(
+                            '${output[0]['confidence']}',
+
+                            style: TextStyle(
+                                color: Colors.white, fontSize: 15.0),
+                          )
+                              : Container(),
                         ],
                       ),
                     ),
             ),
-            
+
             Container(
               width: MediaQuery.of(context).size.width,
               child: Column(

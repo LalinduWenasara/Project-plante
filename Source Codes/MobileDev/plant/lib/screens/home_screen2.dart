@@ -59,27 +59,42 @@ class _Home5State extends State<Home5> {
           Container(
             height: size.height * 0.3,
             child: Center(
-                child: Column(
-              children: [
-                CircleAvatar(
-                  backgroundImage: NetworkImage(userImage),
-                ),
-                Column(
+                child: Row(
                   children: [
-                    Text(userEmail),
-                    Text(testU1),
-                  ],
-                ),
-                ElevatedButton(
-                    onPressed: () async {
-                      await signOutGoogle();
-                      setState(() {
-                        userEmail = '';
-                      });
-                    },
-                    child: Text('Logout')),
+                    Column(
+              children: [
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: size.width*0.2,
+                        ),
+                        CircleAvatar(
+                          backgroundImage: NetworkImage(userImage),
+                        ),
+                        SizedBox(
+                          width: size.width*0.4,
+                        ),
+                        ElevatedButton(
+                            onPressed: () async {
+                              await signOutGoogle();
+                              setState(() {
+                                userEmail = '';
+                              });
+                            },
+                            child: Text('Logout')),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Text(userEmail),
+                        Text(testU1),
+                      ],
+                    ),
+
               ],
-            )),
+            ),
+                  ],
+                )),
             decoration: BoxDecoration(
               color: Colors.green.shade100,
               borderRadius: BorderRadius.only(
@@ -93,7 +108,12 @@ class _Home5State extends State<Home5> {
             width: size.width,
             child: Column(
               children: [
-                Center(child: Text('Services')),
+                Center(child: Text('Services',style: TextStyle(
+                    fontSize: 22,
+                    color: Colors.black45,
+                    fontFamily:'RobotoMono'
+                ),)
+                ),
                 Row(
                   children: [
                     ReusableCard_2(
@@ -177,7 +197,7 @@ class _Home5State extends State<Home5> {
               ],
             ),
             decoration: BoxDecoration(
-              color: Colors.red,
+
               borderRadius: BorderRadius.circular(20.0),
             ),
           ),

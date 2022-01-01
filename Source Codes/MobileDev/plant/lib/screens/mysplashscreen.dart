@@ -23,7 +23,7 @@ class _MySplashScreenState extends State<MySplashScreen> {
             fontSize: 25.0,
             fontWeight: FontWeight.bold),
       ),
-      image: Image.asset('assets/logors-150.png'),
+      image: Image.asset('assets/images/logors-150.png'),
       backgroundColor: Colors.white,
       photoSize: 80.0,
       loaderColor: Colors.green,

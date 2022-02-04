@@ -1,5 +1,6 @@
 import 'dart:io';
-
+import 'dart:typed_data';
+import 'package:image/image.dart' as img;
 import 'package:flutter/material.dart';
 import 'package:tflite/tflite.dart';
 import 'package:image_picker/image_picker.dart';
@@ -15,6 +16,7 @@ class _HomeState extends State<Home> {
   bool _loading = true;
   late List output;
   late File image;
+  //late File img;
 
   final picker = ImagePicker();
 
@@ -26,11 +28,15 @@ class _HomeState extends State<Home> {
     });
   }
 
+
+
+
   detectImage(File image) async {
+
     var res = await Tflite.runModelOnImage(
       path: image.path,
       numResults: 2,
-      threshold: 0.6,
+      threshold: 0.3,
       imageMean: 127.5,
       imageStd: 127.5,
     );
@@ -43,7 +49,7 @@ class _HomeState extends State<Home> {
 
   loadMode() async {
     await Tflite.loadModel(
-        model: 'assets/corn.tflite', labels: 'assets/cornlabel.txt');
+        model: 'assets/model_fp16.tflite', labels: 'assets/tomatolabel.txt');
   }
 
 
@@ -53,6 +59,7 @@ class _HomeState extends State<Home> {
 
     setState(() {
       image = File(img.path);
+
     });
 
     detectImage(image);

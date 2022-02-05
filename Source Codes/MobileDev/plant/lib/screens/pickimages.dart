@@ -1,9 +1,15 @@
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:image/image.dart' as img;
 import 'package:flutter/material.dart';
 import 'package:tflite/tflite.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'dart:io' as io;
+import 'package:path/path.dart';
+
+
+
+
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -16,6 +22,7 @@ class _HomeState extends State<Home> {
   bool _loading = true;
   late List output;
   late File image;
+  late File image2up;
   //late File img;
 
   final picker = ImagePicker();
@@ -59,10 +66,12 @@ class _HomeState extends State<Home> {
 
     setState(() {
       image = File(img.path);
+      image2up = File(img.path);
 
     });
 
-    detectImage(image);
+    detectImage(image);//this will trigger detect image function which responsible to work with  tf lite
+    uploadImageToFirebase();
   }
 
 
@@ -74,10 +83,43 @@ class _HomeState extends State<Home> {
 
     setState(() {
       image = File(img.path);
+      image2up = File(img.path);
     });
 
     detectImage(image);
+    uploadImageToFirebase();
+
   }
+
+
+// upload the image
+  Future uploadImageToFirebase() async {
+    String fileName = basename(image2up.path);
+    firebase_storage.Reference ref =
+    firebase_storage.FirebaseStorage.instance
+        .ref().child('uploads').child('/$fileName');
+
+    final metadata = firebase_storage.SettableMetadata(
+        contentType: 'image/jpeg',
+        customMetadata: {'picked-file-path': fileName});
+    firebase_storage.UploadTask uploadTask;
+    uploadTask = ref.putFile(io.File(image2up.path), metadata);
+    firebase_storage.UploadTask task= await Future.value(uploadTask);
+    Future.value(uploadTask).then((value) => {
+      print("Upload file path ${value.ref.fullPath}")
+    }).onError((error, stackTrace) => {
+      print("Upload file path error ${error.toString()} ")
+    });
+
+
+
+  }
+
+
+
+
+
+
 
 
   @override

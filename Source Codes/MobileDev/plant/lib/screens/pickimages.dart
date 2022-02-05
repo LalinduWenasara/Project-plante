@@ -50,7 +50,15 @@ class _HomeState extends State<Home> {
     setState(() {
       output = res!;
       print(output);
+     var xe=output[0]['confidence'];
+     if (xe<0.5){
+       print("uploading triggered ");
+       uploadImageToFirebase();
+       print(xe);
+     }
+
       _loading = false;
+
     });
   }
 
@@ -71,7 +79,7 @@ class _HomeState extends State<Home> {
     });
 
     detectImage(image);//this will trigger detect image function which responsible to work with  tf lite
-    uploadImageToFirebase();
+
   }
 
 
@@ -87,7 +95,7 @@ class _HomeState extends State<Home> {
     });
 
     detectImage(image);
-    uploadImageToFirebase();
+
 
   }
 
@@ -133,9 +141,9 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: Text(''),
         elevation: 0.0,
-        backgroundColor: Colors.black45,
+        backgroundColor: Colors.black,
       ),
-      backgroundColor: Colors.blueGrey,
+      backgroundColor: Colors.white,
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
@@ -185,7 +193,7 @@ class _HomeState extends State<Home> {
                                   '${output[0]['label']}',
 
                               style: TextStyle(
-                                      color: Colors.white, fontSize: 15.0),
+                                      color: Colors.black38, fontSize: 15.0),
                                 )
                               : Container(),
                           SizedBox(
@@ -196,7 +204,7 @@ class _HomeState extends State<Home> {
                             '${output[0]['index']}',
 
                             style: TextStyle(
-                                color: Colors.white, fontSize: 15.0),
+                                color: Colors.black38, fontSize: 15.0),
                           )
                               : Container(),
                           output != null
@@ -204,7 +212,7 @@ class _HomeState extends State<Home> {
                             '${output[0]['confidence']}',
 
                             style: TextStyle(
-                                color: Colors.white, fontSize: 15.0),
+                                color: Colors.black38, fontSize: 15.0),
                           )
                               : Container(),
                         ],
@@ -230,7 +238,7 @@ class _HomeState extends State<Home> {
                       padding: EdgeInsets.symmetric(
                           horizontal: 25.0, vertical: 18.0),
                       decoration: BoxDecoration(
-                          color: Colors.deepOrange,
+                          color: Colors.green,
                           borderRadius: BorderRadius.circular(10.0)),
                     ),
                   ),
@@ -251,7 +259,7 @@ class _HomeState extends State<Home> {
                       padding: EdgeInsets.symmetric(
                           horizontal: 25.0, vertical: 18.0),
                       decoration: BoxDecoration(
-                          color: Colors.deepOrange,
+                          color: Colors.green,
                           borderRadius: BorderRadius.circular(10.0)),
                     ),
                   ),

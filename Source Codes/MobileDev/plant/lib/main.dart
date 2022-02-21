@@ -6,6 +6,7 @@ import 'package:plant/screens/home_screen2.dart';
 import 'package:plant/screens/login_screen.dart';
 import 'package:plant/screens/registration_screen.dart';
 import 'package:plant/screens/select_plant_screen.dart';
+import 'package:plant/screens/solution_screen.dart';
 import 'package:plant/screens/welcome_plante_screen.dart';
 import 'package:plant/screens/welcome_screen.dart';
 import 'package:plant/screens/home_screen.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         WelcomePlante.id:(context)=> WelcomePlante(),
         SelectPlant.id:(context)=> SelectPlant(),
         MySplashScreen.id:(context)=> MySplashScreen(),
+        SolutionScreen.id:(context)=>SolutionScreen(),
       },
     );
   }

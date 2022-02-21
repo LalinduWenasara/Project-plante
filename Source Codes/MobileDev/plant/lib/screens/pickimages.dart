@@ -6,10 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'dart:io' as io;
 import 'package:path/path.dart';
-
-
-
-
+import 'solution_screen.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -23,6 +20,10 @@ class _HomeState extends State<Home> {
   late List output;
   late File image;
   late File image2up;
+  late String value2;
+
+
+
   //late File img;
 
   final picker = ImagePicker();
@@ -35,11 +36,7 @@ class _HomeState extends State<Home> {
     });
   }
 
-
-
-
   detectImage(File image) async {
-
     var res = await Tflite.runModelOnImage(
       path: image.path,
       numResults: 2,
@@ -50,23 +47,31 @@ class _HomeState extends State<Home> {
     setState(() {
       output = res!;
       print(output);
-     var xe=output[0]['confidence'];
-     if (xe<0.5){
-       print("uploading triggered ");
-       uploadImageToFirebase();
-       print(xe);
-     }
-
+      var xe = output[0]['confidence'];
+      if (xe < 0.6) {
+        print("uploading triggered ");
+        uploadImageToFirebase();
+        print(xe);
+      }
+      value2='${output[0]['label']}';
       _loading = false;
-
     });
   }
+
+
+
+
+
+
+
+
+
+
 
   loadMode() async {
     await Tflite.loadModel(
         model: 'assets/model_fp16.tflite', labels: 'assets/tomatolabel.txt');
   }
-
 
   pickGalleryImage() async {
     var img = await picker.pickImage(source: ImageSource.gallery);
@@ -75,15 +80,11 @@ class _HomeState extends State<Home> {
     setState(() {
       image = File(img.path);
       image2up = File(img.path);
-
     });
 
-    detectImage(image);//this will trigger detect image function which responsible to work with  tf lite
-
+    detectImage(
+        image); //this will trigger detect image function which responsible to work with  tf lite
   }
-
-
-
 
   pickImage() async {
     var img = await picker.pickImage(source: ImageSource.camera);
@@ -95,34 +96,31 @@ class _HomeState extends State<Home> {
     });
 
     detectImage(image);
-
-
   }
-
 
 // upload the image
   Future uploadImageToFirebase() async {
     String fileName = basename(image2up.path);
-    firebase_storage.Reference ref =
-    firebase_storage.FirebaseStorage.instance
-        .ref().child('uploads').child('/$fileName');
+    firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
+        .ref()
+        .child('uploads')
+        .child('/$fileName');
 
     final metadata = firebase_storage.SettableMetadata(
         contentType: 'image/jpeg',
-        customMetadata: {'picked-file-path': fileName});
+        customMetadata: {'picked-file-path': fileName,
+          'who-sent-this':"tada",
+          'is-it-easy-this-way':"mmm"
+
+        });
     firebase_storage.UploadTask uploadTask;
     uploadTask = ref.putFile(io.File(image2up.path), metadata);
-    firebase_storage.UploadTask task= await Future.value(uploadTask);
-    Future.value(uploadTask).then((value) => {
-      print("Upload file path ${value.ref.fullPath}")
-    }).onError((error, stackTrace) => {
-      print("Upload file path error ${error.toString()} ")
-    });
-
-
-
+    firebase_storage.UploadTask task = await Future.value(uploadTask);
+    Future.value(uploadTask)
+        .then((value) => {print("Upload file path ${value.ref.fullPath}")})
+        .onError((error, stackTrace) =>
+            {print("Upload file path error ${error.toString()} ")});
   }
-
 
 
 
@@ -152,15 +150,12 @@ class _HomeState extends State<Home> {
             SizedBox(
               height: 20.0,
             ),
-
             SizedBox(
               height: 5.0,
             ),
             Text(
               'Classifier',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20.0),
+              style: TextStyle(color: Colors.white, fontSize: 20.0),
             ),
             SizedBox(
               height: 30.0,
@@ -171,7 +166,6 @@ class _HomeState extends State<Home> {
                       width: MediaQuery.of(context).size.width - 100,
                       child: Column(
                         children: [
-
                           SizedBox(
                             height: 50.0,
                           )
@@ -192,7 +186,7 @@ class _HomeState extends State<Home> {
                               ? Text(
                                   '${output[0]['label']}',
 
-                              style: TextStyle(
+                                  style: TextStyle(
                                       color: Colors.black38, fontSize: 15.0),
                                 )
                               : Container(),
@@ -201,25 +195,22 @@ class _HomeState extends State<Home> {
                           ),
                           output != null
                               ? Text(
-                            '${output[0]['index']}',
-
-                            style: TextStyle(
-                                color: Colors.black38, fontSize: 15.0),
-                          )
+                                  '${output[0]['index']}',
+                                  style: TextStyle(
+                                      color: Colors.black38, fontSize: 15.0),
+                                )
                               : Container(),
                           output != null
                               ? Text(
-                            '${output[0]['confidence']}',
-
-                            style: TextStyle(
-                                color: Colors.black38, fontSize: 15.0),
-                          )
+                                  '${output[0]['confidence']}',
+                                  style: TextStyle(
+                                      color: Colors.black38, fontSize: 15.0),
+                                )
                               : Container(),
                         ],
                       ),
                     ),
             ),
-
             Container(
               width: MediaQuery.of(context).size.width,
               child: Column(
@@ -263,6 +254,14 @@ class _HomeState extends State<Home> {
                           borderRadius: BorderRadius.circular(10.0)),
                     ),
                   ),
+
+                  ElevatedButton(onPressed: (){
+                    Navigator.of(context).push(MaterialPageRoute(builder:(context)=>SolutionScreen(value1:value2,image: image,),));
+
+
+
+
+                  },child: Text("next") )
                 ],
               ),
             )

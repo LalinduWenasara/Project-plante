@@ -122,6 +122,7 @@ class _Home5State extends State<Home5> {
                         padding: const EdgeInsets.all(10.0),
                         child: Container(
                             height: size.height * 0.1,
+                            width: size.width *0.2,
                             child: Text('Select Plant')),
                       ),
                       onPress: () {
@@ -134,7 +135,8 @@ class _Home5State extends State<Home5> {
                         padding: const EdgeInsets.all(10.0),
                         child: Container(
                             height: size.height * 0.1,
-                            child: Text('Select Plant')),
+                            width: size.width *0.2,
+                            child: Text('Profile')),
                       ),
                       onPress: () {
                         Navigator.pushNamed(context, SelectPlant.id);
@@ -146,7 +148,8 @@ class _Home5State extends State<Home5> {
                         padding: const EdgeInsets.all(10.0),
                         child: Container(
                             height: size.height * 0.1,
-                            child: Text('Select Plant')),
+                            width: size.width *0.2,
+                            child: Text('Messages')),
                       ),
                       onPress: () {
                         Navigator.pushNamed(context, SelectPlant.id);
@@ -162,7 +165,8 @@ class _Home5State extends State<Home5> {
                         padding: const EdgeInsets.all(10.0),
                         child: Container(
                             height: size.height * 0.1,
-                            child: Text('Select Plant')),
+                            width: size.width *0.2,
+                            child: Text('Dummy')),
                       ),
                       onPress: () {
                         Navigator.pushNamed(context, SelectPlant.id);
@@ -174,7 +178,8 @@ class _Home5State extends State<Home5> {
                         padding: const EdgeInsets.all(10.0),
                         child: Container(
                             height: size.height * 0.1,
-                            child: Text('Select Plant')),
+                            width: size.width *0.2,
+                            child: Text('Dummy')),
                       ),
                       onPress: () {
                         Navigator.pushNamed(context, SelectPlant.id);
@@ -186,7 +191,8 @@ class _Home5State extends State<Home5> {
                         padding: const EdgeInsets.all(10.0),
                         child: Container(
                             height: size.height * 0.1,
-                            child: Text('Select Plant')),
+                            width: size.width *0.2,
+                            child: Text('Dummy')),
                       ),
                       onPress: () {
                         Navigator.pushNamed(context, SelectPlant.id);

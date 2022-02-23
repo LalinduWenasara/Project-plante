@@ -39,7 +39,7 @@ class _SolutionScreenState extends State<SolutionScreen> {
     //child: Image.file(image),
             child:Column(
               children: [
-                Text("tatat"),
+                Text("Good Prediction"),
                 Text(value1),
                 Container(
                   height: 250.0,

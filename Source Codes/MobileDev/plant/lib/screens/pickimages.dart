@@ -1,11 +1,12 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:plant/screens/soluton_screen_low_predict.dart';
 import 'package:tflite/tflite.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'dart:io' as io;
-import 'package:path/path.dart';
+import 'package:path/path.dart' as paths;
 import 'solution_screen.dart';
 
 class Home extends StatefulWidget {
@@ -21,6 +22,7 @@ class _HomeState extends State<Home> {
   late File image;
   late File image2up;
   late String value2;
+  late var abc;
 
 
 
@@ -34,6 +36,11 @@ class _HomeState extends State<Home> {
     loadMode().then((value) {
       setState(() {});
     });
+
+
+
+
+
   }
 
   detectImage(File image) async {
@@ -48,17 +55,29 @@ class _HomeState extends State<Home> {
       output = res!;
       print(output);
       var xe = output[0]['confidence'];
+      abc=xe;
       if (xe < 0.6) {
         print("uploading triggered ");
         uploadImageToFirebase();
         print(xe);
+
       }
       value2='${output[0]['label']}';
       _loading = false;
     });
+    changeScreens2();
   }
 
 
+  changeScreens2() async {
+
+    if(abc < 0.6){
+      Navigator.of(context).push(MaterialPageRoute(builder:(context)=>SolutionScreenLowPredict(value1:value2,image: image,),));}
+    else{
+      Navigator.of(context).push(MaterialPageRoute(builder:(context)=>SolutionScreen(value1:value2,image: image,),));
+    }
+
+  }
 
 
 
@@ -96,11 +115,12 @@ class _HomeState extends State<Home> {
     });
 
     detectImage(image);
+
   }
 
 // upload the image
   Future uploadImageToFirebase() async {
-    String fileName = basename(image2up.path);
+    String fileName = paths.basename(image2up.path);
     firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
         .ref()
         .child('uploads')
@@ -121,10 +141,6 @@ class _HomeState extends State<Home> {
         .onError((error, stackTrace) =>
             {print("Upload file path error ${error.toString()} ")});
   }
-
-
-
-
 
 
 
@@ -218,6 +234,8 @@ class _HomeState extends State<Home> {
                   GestureDetector(
                     onTap: () {
                       pickImage();
+
+
                     },
                     child: Container(
                       child: Text(
@@ -239,6 +257,8 @@ class _HomeState extends State<Home> {
                   GestureDetector(
                     onTap: () {
                       pickGalleryImage();
+
+
                     },
                     child: Container(
                       child: Text(
@@ -256,10 +276,12 @@ class _HomeState extends State<Home> {
                   ),
 
                   ElevatedButton(onPressed: (){
+                    changeScreens2();
+                    /*if(abc < 0.6){
+                    Navigator.of(context).push(MaterialPageRoute(builder:(context)=>SolutionScreenLowPredict(value1:value2,image: image,),));}
+                    else{
                     Navigator.of(context).push(MaterialPageRoute(builder:(context)=>SolutionScreen(value1:value2,image: image,),));
-
-
-
+                    }*/
 
                   },child: Text("next") )
                 ],

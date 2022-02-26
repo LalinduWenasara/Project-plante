@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:plant/screens/soluton_screen_low_predict.dart';
 import 'package:tflite/tflite.dart';
@@ -23,8 +24,7 @@ class _HomeState extends State<Home> {
   late File image2up;
   late String value2;
   late var abc;
-
-
+  late String downloadUrl;
 
   //late File img;
 
@@ -36,11 +36,6 @@ class _HomeState extends State<Home> {
     loadMode().then((value) {
       setState(() {});
     });
-
-
-
-
-
   }
 
   detectImage(File image) async {
@@ -55,37 +50,36 @@ class _HomeState extends State<Home> {
       output = res!;
       print(output);
       var xe = output[0]['confidence'];
-      abc=xe;
+      abc = xe;
       if (xe < 0.6) {
         print("uploading triggered ");
         uploadImageToFirebase();
-        print(xe);
 
+        print(xe);
       }
-      value2='${output[0]['label']}';
+      value2 = '${output[0]['label']}';
       _loading = false;
     });
     changeScreens2();
   }
 
-
   changeScreens2() async {
-
-    if(abc < 0.6){
-      Navigator.of(context).push(MaterialPageRoute(builder:(context)=>SolutionScreenLowPredict(value1:value2,image: image,),));}
-    else{
-      Navigator.of(context).push(MaterialPageRoute(builder:(context)=>SolutionScreen(value1:value2,image: image,),));
+    if (abc < 0.6) {
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => SolutionScreenLowPredict(
+          value1: value2,
+          image: image,
+        ),
+      ));
+    } else {
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => SolutionScreen(
+          value1: value2,
+          image: image,
+        ),
+      ));
     }
-
   }
-
-
-
-
-
-
-
-
 
   loadMode() async {
     await Tflite.loadModel(
@@ -115,11 +109,11 @@ class _HomeState extends State<Home> {
     });
 
     detectImage(image);
-
   }
 
 // upload the image
   Future uploadImageToFirebase() async {
+    /*
     String fileName = paths.basename(image2up.path);
     firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
         .ref()
@@ -128,21 +122,31 @@ class _HomeState extends State<Home> {
 
     final metadata = firebase_storage.SettableMetadata(
         contentType: 'image/jpeg',
-        customMetadata: {'picked-file-path': fileName,
-          'who-sent-this':"tada",
-          'is-it-easy-this-way':"mmm"
-
+        customMetadata: {
+          'picked-file-path': fileName,
+          'who-sent-this': "tada",
+          'is-it-easy-this-way': "mmm"
         });
     firebase_storage.UploadTask uploadTask;
     uploadTask = ref.putFile(io.File(image2up.path), metadata);
-    firebase_storage.UploadTask task = await Future.value(uploadTask);
+   firebase_storage.UploadTask task = await Future.value(uploadTask);
+
     Future.value(uploadTask)
-        .then((value) => {print("Upload file path ${value.ref.fullPath}")})
+        .then((value) => {
+          print("Upload file path ${value.ref.fullPath} ")
+
+        })
         .onError((error, stackTrace) =>
             {print("Upload file path error ${error.toString()} ")});
+    
+*/
+    String fileName = paths.basename(image2up.path);
+    Reference ref= FirebaseStorage.instance.ref().child('uploads').child('/$fileName');
+    await ref.putFile(image2up);
+    downloadUrl = await ref.getDownloadURL();
+    print(downloadUrl);
+
   }
-
-
 
   @override
   void dispose() {
@@ -164,15 +168,12 @@ class _HomeState extends State<Home> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: 20.0,
+              height: 200.0,
             ),
             SizedBox(
               height: 5.0,
             ),
-            Text(
-              'Classifier',
-              style: TextStyle(color: Colors.white, fontSize: 20.0),
-            ),
+            /*
             SizedBox(
               height: 30.0,
             ),
@@ -226,7 +227,7 @@ class _HomeState extends State<Home> {
                         ],
                       ),
                     ),
-            ),
+            ),*/
             Container(
               width: MediaQuery.of(context).size.width,
               child: Column(
@@ -234,8 +235,6 @@ class _HomeState extends State<Home> {
                   GestureDetector(
                     onTap: () {
                       pickImage();
-
-
                     },
                     child: Container(
                       child: Text(
@@ -257,8 +256,6 @@ class _HomeState extends State<Home> {
                   GestureDetector(
                     onTap: () {
                       pickGalleryImage();
-
-
                     },
                     child: Container(
                       child: Text(
@@ -274,7 +271,7 @@ class _HomeState extends State<Home> {
                           borderRadius: BorderRadius.circular(10.0)),
                     ),
                   ),
-
+/*
                   ElevatedButton(onPressed: (){
                     changeScreens2();
                     /*if(abc < 0.6){
@@ -283,7 +280,7 @@ class _HomeState extends State<Home> {
                     Navigator.of(context).push(MaterialPageRoute(builder:(context)=>SolutionScreen(value1:value2,image: image,),));
                     }*/
 
-                  },child: Text("next") )
+                  },child: Text("next") )*/
                 ],
               ),
             )

@@ -2,6 +2,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:plant/screens/chat_screen.dart';
+import 'package:plant/screens/feedback_screen.dart';
 import 'package:plant/screens/home_screen2.dart';
 import 'package:plant/screens/login_screen.dart';
 import 'package:plant/screens/registration_screen.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      //initialRoute: WelcomePlante.id,
       initialRoute: WelcomePlante.id,
       routes: {
         WelcomeScreen.id: (context) => WelcomeScreen(),
@@ -40,6 +42,7 @@ class MyApp extends StatelessWidget {
         SelectPlant.id:(context)=> SelectPlant(),
         MySplashScreen.id:(context)=> MySplashScreen(),
         SolutionScreen.id:(context)=>SolutionScreen(),
+        FeedbackScreen.id:(context)=>FeedbackScreen(),
       },
     );
   }

@@ -13,41 +13,46 @@ class SolutionScreenLowPredict extends StatefulWidget {
 
   String value1;
   File image;
-  SolutionScreenLowPredict({this.value1,this.image});
+  SolutionScreenLowPredict({this.value1, this.image});
 
   @override
-  _SolutionScreenLowPredictState createState() => _SolutionScreenLowPredictState(value1,image);
+  _SolutionScreenLowPredictState createState() =>
+      _SolutionScreenLowPredictState(value1, image);
 }
 
 class _SolutionScreenLowPredictState extends State<SolutionScreenLowPredict> {
   File image;
   String test_text;
   String value1;
-  _SolutionScreenLowPredictState(this.value1,this.image);
+  _SolutionScreenLowPredictState(this.value1, this.image);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Test"),),
+      appBar: AppBar(
+        title: Text("Test"),
+      ),
       body: Column(
         children: [
           Padding(
             padding: const EdgeInsets.all(12.0),
 
             //child: Image.file(image),
-            child:Column(
+            child: Column(
               children: [
-                Text("Low Predict"),
-                Text(value1),
+                Text("Low Prediction"),
+                // Text(value1),
                 Container(
                   height: 250.0,
                   child: Image.file(image),
-
-
                 ),
-                Text("image of the diseased plant has been uploaded. Specialists will contact you soon.Please wait."),
+                Center(
+                    child: Text("Oops Sorry We cant give accurate answer now ",
+                        style: TextStyle(fontWeight: FontWeight.bold))),
+                Center(
+                    child: Text(
+                        "image of the diseased plant has been uploaded.Our Specialists will contact you soon.Please wait.")),
               ],
             ),
-
           ),
         ],
       ),

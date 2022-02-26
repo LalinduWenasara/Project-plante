@@ -1,0 +1,106 @@
+// @dart=2.9
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+
+
+class FeedbackScreen extends StatefulWidget {
+  static const String id = 'feedback';
+
+  @override
+  _FeedbackScreenState createState() => _FeedbackScreenState();
+}
+
+class _FeedbackScreenState extends State<FeedbackScreen> {
+  final _auth = FirebaseAuth.instance;
+  String userEmail, userImage, testU1, testU2, testU3;
+  Size size;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getCurrentUser();
+  }
+
+  void getCurrentUser() async {
+    final user = await _auth.currentUser;
+    if (user != null) {
+      print('checkpoint1');
+      print(user.email);
+      setState(() {
+        userEmail = user.email;
+        userImage = user.photoURL;
+        testU1 = user.displayName;
+        testU2 = user.uid;
+      });
+    } else {
+      print('check2');
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    size = MediaQuery.of(context).size;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('feedback'),
+      ),
+      body: Column(
+        children: [
+          Container(
+            height: size.height * 0.4,
+
+          ),
+          Center(
+            child: RatingBar.builder(
+              updateOnDrag: true,
+              initialRating: 3,
+              itemCount: 5,
+              itemBuilder: (context, index) {
+                switch (index) {
+                  case 0:
+                    return Icon(
+                      Icons.sentiment_very_dissatisfied,
+                      color: Colors.red,
+                    );
+                  case 1:
+                    return Icon(
+                      Icons.sentiment_dissatisfied,
+                      color: Colors.redAccent,
+                    );
+                  case 2:
+                    return Icon(
+                      Icons.sentiment_neutral,
+                      color: Colors.amber,
+                    );
+                  case 3:
+                    return Icon(
+                      Icons.sentiment_satisfied,
+                      color: Colors.lightGreen,
+                    );
+                  case 4:
+                    return Icon(
+                      Icons.sentiment_very_satisfied,
+                      color: Colors.green,
+                    );
+                }
+              },
+              onRatingUpdate: (rating) {
+                print(rating);
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              decoration:InputDecoration(border: OutlineInputBorder()) ,
+            ),
+          ),
+
+        ],
+      ),
+    );
+  }
+}

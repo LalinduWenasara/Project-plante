@@ -24,7 +24,7 @@ class _HomeState extends State<Home> {
   late File image2up;
   late String value2;
   late var abc;
-  late String downloadUrl;
+  String downloadUrl ="";
 
   //late File img;
 
@@ -69,6 +69,7 @@ class _HomeState extends State<Home> {
         builder: (context) => SolutionScreenLowPredict(
           value1: value2,
           image: image,
+          downloadURL:downloadUrl,
         ),
       ));
     } else {

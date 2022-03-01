@@ -10,6 +10,8 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'dart:io' as io;
 import 'package:path/path.dart';
 
+import 'feedback_screen.dart';
+
 class SolutionScreenLowPredict extends StatefulWidget {
   static const String id = 'SolutionScreenLow';
 
@@ -99,7 +101,7 @@ class _SolutionScreenLowPredictState extends State<SolutionScreenLowPredict> {
                     child: Text(
                         "image of the diseased plant has been uploaded.Our Specialists will contact you soon.Please wait.")),
                 SizedBox(
-                  width: size.width*0.1,
+                  height: 50,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -121,6 +123,7 @@ class _SolutionScreenLowPredictState extends State<SolutionScreenLowPredict> {
                       'lat':'dummy',
                       'long':'dummy',
                     });
+                    Navigator.pushNamed(context, FeedbackScreen.id);
                   },
                   child: Text(
                     '->',

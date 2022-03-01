@@ -24,7 +24,7 @@ class _HomeState extends State<Home> {
   late File image2up;
   late String value2;
   late var abc;
-  String downloadUrl ="";
+  late String downloadUrl;
 
   //late File img;
 
@@ -57,10 +57,13 @@ class _HomeState extends State<Home> {
 
         print(xe);
       }
+      else{
+        changeScreens2();
+      }
       value2 = '${output[0]['label']}';
       _loading = false;
     });
-    changeScreens2();
+    //
   }
 
   changeScreens2() async {
@@ -145,7 +148,8 @@ class _HomeState extends State<Home> {
     Reference ref= FirebaseStorage.instance.ref().child('uploads').child('/$fileName');
     await ref.putFile(image2up);
     downloadUrl = await ref.getDownloadURL();
-    print(downloadUrl);
+    changeScreens2();
+   // print(downloadUrl);
 
   }
 

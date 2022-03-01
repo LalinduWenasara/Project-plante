@@ -98,6 +98,9 @@ class _SolutionScreenLowPredictState extends State<SolutionScreenLowPredict> {
                 Center(
                     child: Text(
                         "image of the diseased plant has been uploaded.Our Specialists will contact you soon.Please wait.")),
+                SizedBox(
+                  width: size.width*0.1,
+                ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(

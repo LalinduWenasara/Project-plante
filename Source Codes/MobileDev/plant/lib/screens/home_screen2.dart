@@ -7,6 +7,8 @@ import 'package:plant/screens/login_google_screen.dart';
 import 'package:plant/screens/select_plant_screen.dart';
 
 import '../reusable.dart';
+import 'chat_screen.dart';
+import 'feedback_screen.dart';
 
 class Home5 extends StatefulWidget {
   static const String id = 'home5';
@@ -152,7 +154,7 @@ class _Home5State extends State<Home5> {
                             child: Text('Messages')),
                       ),
                       onPress: () {
-                        Navigator.pushNamed(context, SelectPlant.id);
+                        Navigator.pushNamed(context, ChatScreen.id);
                       },
                     ),
                   ],
@@ -169,7 +171,7 @@ class _Home5State extends State<Home5> {
                             child: Text('Dummy')),
                       ),
                       onPress: () {
-                        Navigator.pushNamed(context, SelectPlant.id);
+                        Navigator.pushNamed(context, FeedbackScreen.id);
                       },
                     ),
                     ReusableCard_2(

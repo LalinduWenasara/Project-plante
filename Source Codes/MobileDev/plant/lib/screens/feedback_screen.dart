@@ -1,4 +1,5 @@
 // @dart=2.9
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,8 +15,10 @@ class FeedbackScreen extends StatefulWidget {
 
 class _FeedbackScreenState extends State<FeedbackScreen> {
   final _auth = FirebaseAuth.instance;
+  final _firestore = FirebaseFirestore.instance;
   String userEmail, userImage, testU1, testU2, testU3;
   Size size;
+  var feedback;
 
   @override
   void initState() {
@@ -25,6 +28,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
   }
 
   void getCurrentUser() async {
+
     final user = await _auth.currentUser;
     if (user != null) {
       print('checkpoint1');
@@ -50,7 +54,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
       body: Column(
         children: [
           Container(
-            height: size.height * 0.4,
+            height: size.height * 0.2,
 
           ),
           Center(
@@ -89,8 +93,12 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
               },
               onRatingUpdate: (rating) {
                 print(rating);
+                feedback=rating;
               },
             ),
+          ),
+          SizedBox(
+            width: size.width*0.1,
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -98,7 +106,17 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
               decoration:InputDecoration(border: OutlineInputBorder()) ,
             ),
           ),
-
+          ElevatedButton(
+            onPressed: () {
+              _firestore.collection('feedback').add({
+                'sender': userEmail,
+                'feedback':feedback,
+              });
+            },
+            child: Text(
+              '->',
+            ),
+          ),
         ],
       ),
     );

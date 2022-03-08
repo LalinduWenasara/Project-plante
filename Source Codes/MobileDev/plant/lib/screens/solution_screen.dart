@@ -31,6 +31,8 @@ class _SolutionScreenState extends State<SolutionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Test"),),
+
+
       body: Column(
         children: [
           Padding(

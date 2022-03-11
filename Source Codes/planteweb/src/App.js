@@ -5,7 +5,7 @@ import { Card } from './Card';
 import Home from './Home';
 import Login from './Login';
 //import { useState } from 'react';
-import { db,auth } from './firebase-config';
+import { db, auth } from './firebase-config';
 import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc } from "firebase/firestore";
 import {
   createUserWithEmailAndPassword,
@@ -27,6 +27,11 @@ function App() {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
+  const [emailAddress, setemailAddress] = useState("");
+  const [authPassword, setauthPassword] = useState("");
+  
+
+
   const [user, setUser] = useState({});
 
   onAuthStateChanged(auth, (currentUser) => {
@@ -34,7 +39,7 @@ function App() {
   });
 
 
-  const clearErrors=()=>{
+  const clearErrors = () => {
     setEmailError('');
     setPasswordError('');
   }
@@ -49,13 +54,13 @@ function App() {
       );
       console.log(user);
     } catch (error) {
-      switch(error.code){
+      switch (error.code) {
         case "auth/invalid-email":
-        setEmailError(error.message);
-        break;
+          setEmailError(error.message);
+          break;
         case "auth/weak-password":
-        setPasswordError(error.message);
-        break;
+          setPasswordError(error.message);
+          break;
       }
 
       console.log(error.message);
@@ -72,13 +77,13 @@ function App() {
       );
       console.log(user);
     } catch (error) {
-      switch(error.code){
+      switch (error.code) {
         case "auth/invalid-email":
         case "auth/user-disabled":
         case "auth/user-not-found":
           setEmailError(error.message);
           break;
-          case "auth/wrong-password":
+        case "auth/wrong-password":
           setPasswordError(error.message);
           break;
       }
@@ -127,7 +132,7 @@ function App() {
 
 
 
-/* this things need move to web page */ 
+  /* this things need move to web page */
 
   const [users, setUsers] = useState([]);
   const [uploadinfo, setUploadImageInfo] = useState([]);
@@ -194,59 +199,27 @@ function App() {
   }, [])
   return (
     <div className="App">
-        <Login/>
-        <Home/>
 
 
+      {user ? (
+        <section>
 
-        
-        <h3> Register User </h3>
-        <input
-          placeholder="Email..."
-          onChange={(event) => {
-            setRegisterEmail(event.target.value);
-          }}
-        />
-        <input
-          placeholder="Password..."
-          onChange={(event) => {
-            setRegisterPassword(event.target.value);
-          }}
-        />
+          <h4> User Logged In: </h4>
+          {user?.email}
 
-        <button onClick={register}> Create User</button>
-     
-        <h1>{emailError}</h1>
-        <h1>{passwordError}</h1>
-        <h3> Login </h3>
-        <input
-          placeholder="Email..."
-          onChange={(event) => {
-            setLoginEmail(event.target.value);
-          }}
-        />
-        <input
-          placeholder="Password..."
-          onChange={(event) => {
-            setLoginPassword(event.target.value);
-          }}
-        />
+          <button onClick={logout}> Sign Out </button>
 
-        <button onClick={login}> Login</button>
-      
 
-      <h4> User Logged In: </h4>
-      {user?.email}
 
-      <button onClick={logout}> Sign Out </button>
-    
-  
 
-    
 
+          <div><h1>---------------------------------------------------------------------------------------------------------------------
+          </h1></div>
+          <input placeholder="Name" onChange={(event) => { setNewName(event.target.value); }} />
+          <input type="number" placeholder="age" onChange={(event) => { setNewAge(event.target.value); }} />
+          <button onClick={createUser}>Create User</button>
 
 
-    
 
 
 
@@ -260,147 +233,181 @@ function App() {
 
 
 
+          {users.map((users) => {
+            return (<div>
+              {""}<h1>
+                Name:{users.name}</h1>
+              <h1>
+                Age:{users.age}
+              </h1>
+              <h1>
+                Age:{users.id}
+              </h1>
+              <button type="button" class="btn btn-primary"
+                onClick={() => {
+                  deleteUser(users.id);
+                }}
+              >
+                {" "}
+                Delete User
+              </button>
+            </div>)
+          })}
 
+          <div><h1>---------------------------------------------------------------------------------------------------------------------
+          </h1></div>
 
+          {uploadinfo.map((up) => {
+            return (<div>
+              {""}
 
+              <img src={up.downloadURL}></img>
+              <h2>
+                message:{up.message}
+              </h2>
+              <h1>
+                sender:{up.sender}
+              </h1>
+              <button type="button" class="btn btn-primary"
+                onClick={() => {
+                  deleteUser(users.id);
+                }}
+              >
+                {" "}
+                Delete User
+              </button>
+            </div>)
+          }
 
 
 
 
 
+          )}
 
+          <div><h1>---------------------------------------------------------------------------------------------------------------------
+          </h1></div>
 
 
+          {uploadinfo.map((up) => {
+            return (<div class="col-sm-4">
+              {""}
+              <div class="card" >
+                <img src={up.downloadURL} alt="..."></img>
+                <div class="card-body">
+                  <h5 class="card-title">{up.sender}</h5>
+                  <p class="card-text">{up.message}</p>
+                  <p class="card-text"><small class="text-muted">time</small></p>
+                </div>
+              </div>
+              <Card />
+            </div>
 
 
 
+            )
 
 
 
+          }
 
+          )
 
 
 
+          }
+        </section>
 
 
+      ) : (
+        <section>
+          <h1>not Logged</h1>
 
-
-
-
-
-
-
-
-
-
-
-      <input placeholder="Name" onChange={(event) => { setNewName(event.target.value); }} />
-      <input type="number" placeholder="age" onChange={(event) => { setNewAge(event.target.value); }} />
-      <button onClick={createUser}>Create User</button>
-
-      
-
-
-
-
-
-
-
-
-
-
-
-
-
-      {users.map((users) => {
-        return (<div>
-          {""}<h1>
-            Name:{users.name}</h1>
-          <h1>
-            Age:{users.age}
-          </h1>
-          <h1>
-            Age:{users.id}
-          </h1>
-          <button type="button" class="btn btn-primary"
-            onClick={() => {
-              deleteUser(users.id);
+          <h3> Register User </h3>
+          <input
+            placeholder="Email..."
+            onChange={(event) => {
+              setRegisterEmail(event.target.value);
             }}
-          >
-            {" "}
-            Delete User
-          </button>
-        </div>)
-      })}
-
-      <div><h1>---------------------------------------------------------------------------------------------------------------------
-      </h1></div>
-
-      {uploadinfo.map((up) => {
-        return (<div>
-          {""}
-
-          <img src={up.downloadURL}></img>
-          <h2>
-            message:{up.message}
-          </h2>
-          <h1>
-            sender:{up.sender}
-          </h1>
-          <button type="button" class="btn btn-primary"
-            onClick={() => {
-              deleteUser(users.id);
+          />
+          <input
+            placeholder="Password..."
+            onChange={(event) => {
+              setRegisterPassword(event.target.value);
             }}
-          >
-            {" "}
-            Delete User
-          </button>
-        </div>)
-      }
+          />
+
+          <button onClick={register}> Create User</button>
+
+          <h1>{emailError}</h1>
+          <h1>{passwordError}</h1>
+          <h3> Login </h3>
+          <input
+            placeholder="Email..."
+            onChange={(event) => {
+              setLoginEmail(event.target.value);
+            }}
+          />
+          <input
+            placeholder="Password..."
+            onChange={(event) => {
+              setLoginPassword(event.target.value);
+            }}
+          />
+
+          <button onClick={login}> Login</button>
 
 
 
 
 
+
+          <h3> final look </h3>
+          <input
+            placeholder="email"
+            onChange={(event) => {
+              setemailAddress(event.target.value);
+            }}
+          />
+          <input
+            placeholder="Password" type="password"
+            onChange={(event) => {
+              setauthPassword(event.target.value);
+            }}
+          />
+
+          <button onClick={register}> Create User</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </section>
       )}
 
-      <div><h1>---------------------------------------------------------------------------------------------------------------------
-      </h1></div>
-
-
-      {uploadinfo.map((up) => {
-        return (<div class="col-sm-4">
-          {""}
-          <div class="card" >
-            <img src={up.downloadURL} alt="..."></img>
-            <div class="card-body">
-              <h5 class="card-title">{up.sender}</h5>
-              <p class="card-text">{up.message}</p>
-              <p class="card-text"><small class="text-muted">time</small></p>
-            </div>
-          </div>
-          <Card />
-        </div>
 
 
 
-        )
-
-
-
-      }
-
-      )
-
-
-
-      }
-
-
-      
 
     </div>
   );
+
 }
 
 export default App;
+
+

@@ -29,6 +29,7 @@ function App() {
 
   const [emailAddress, setemailAddress] = useState("");
   const [authPassword, setauthPassword] = useState("");
+  const [hasAccount,setHasAccount]=useState(false);
   
 
 
@@ -49,8 +50,8 @@ function App() {
     try {
       const user = await createUserWithEmailAndPassword(
         auth,
-        registerEmail,
-        registerPassword
+        emailAddress,
+        authPassword
       );
       console.log(user);
     } catch (error) {
@@ -72,8 +73,8 @@ function App() {
     try {
       const user = await signInWithEmailAndPassword(
         auth,
-        loginEmail,
-        loginPassword
+        emailAddress,
+        authPassword
       );
       console.log(user);
     } catch (error) {
@@ -321,65 +322,48 @@ function App() {
 
       ) : (
         <section>
-          <h1>not Logged</h1>
-
-          <h3> Register User </h3>
-          <input
-            placeholder="Email..."
-            onChange={(event) => {
-              setRegisterEmail(event.target.value);
-            }}
-          />
-          <input
-            placeholder="Password..."
-            onChange={(event) => {
-              setRegisterPassword(event.target.value);
-            }}
-          />
-
-          <button onClick={register}> Create User</button>
-
-          <h1>{emailError}</h1>
-          <h1>{passwordError}</h1>
-          <h3> Login </h3>
-          <input
-            placeholder="Email..."
-            onChange={(event) => {
-              setLoginEmail(event.target.value);
-            }}
-          />
-          <input
-            placeholder="Password..."
-            onChange={(event) => {
-              setLoginPassword(event.target.value);
-            }}
-          />
-
-          <button onClick={login}> Login</button>
+          
 
 
-
-
-
-
-          <h3> final look </h3>
+          
           <input
             placeholder="email"
             onChange={(event) => {
               setemailAddress(event.target.value);
             }}
+                    
           />
+            <h1>{emailError}</h1>
+         
           <input
             placeholder="Password" type="password"
             onChange={(event) => {
               setauthPassword(event.target.value);
             }}
+            
           />
+          <h1>{passwordError}</h1>
 
-          <button onClick={register}> Create User</button>
-
-
-
+          <div className='buttonContainer'>
+          {hasAccount?(
+          <>
+          <button onClick={register}> sign up</button>
+          <p>
+            Don't have an account?
+            <span onClick={()=>setHasAccount(false)}>Signup</span>
+          </p>
+          </>
+          ):(
+            <>
+            <button onClick={login}>sign in</button>
+          <p>
+            have an account?
+            <span onClick={()=>setHasAccount(true)}>Signup</span>
+          </p>
+          </>
+          )}
+          </div>
+       
 
 
 

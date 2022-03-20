@@ -51,7 +51,7 @@ class _HomeState extends State<Home> {
       print(output);
       var xe = output[0]['confidence'];
       abc = xe;
-      if (xe < 0.6) {
+      if (xe < 0.8) {
         print("uploading triggered ");
         uploadImageToFirebase();
 

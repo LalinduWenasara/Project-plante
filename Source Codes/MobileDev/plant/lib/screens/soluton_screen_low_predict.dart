@@ -99,7 +99,7 @@ class _SolutionScreenLowPredictState extends State<SolutionScreenLowPredict> {
                         style: TextStyle(fontWeight: FontWeight.bold))),
                 Center(
                     child: Text(
-                        "image of the diseased plant has been uploaded.Our Specialists will contact you soon.Please wait.")),
+                        "Please tell us what are the symptoms as you can see.we will contact you soon")),
                 SizedBox(
                   height: 50,
                 ),
@@ -126,7 +126,7 @@ class _SolutionScreenLowPredictState extends State<SolutionScreenLowPredict> {
                     Navigator.pushNamed(context, FeedbackScreen.id);
                   },
                   child: Text(
-                    '->',
+                    'Send',
                 ),
                 ),
 

@@ -18,11 +18,11 @@ class SolutionScreenLowPredict extends StatefulWidget {
   String value1;
   File image;
   String downloadURL;
-  SolutionScreenLowPredict({this.value1, this.image,this.downloadURL});
+  SolutionScreenLowPredict({this.value1, this.image, this.downloadURL});
 
   @override
   _SolutionScreenLowPredictState createState() =>
-      _SolutionScreenLowPredictState(value1, image,downloadURL);
+      _SolutionScreenLowPredictState(value1, image, downloadURL);
 }
 
 class _SolutionScreenLowPredictState extends State<SolutionScreenLowPredict> {
@@ -30,8 +30,7 @@ class _SolutionScreenLowPredictState extends State<SolutionScreenLowPredict> {
   String test_text;
   String value1;
   String downloadURL;
-  _SolutionScreenLowPredictState(this.value1, this.image,this.downloadURL);
-
+  _SolutionScreenLowPredictState(this.value1, this.image, this.downloadURL);
 
   final _firestore = FirebaseFirestore.instance;
   final _auth = FirebaseAuth.instance;
@@ -71,9 +70,6 @@ class _SolutionScreenLowPredictState extends State<SolutionScreenLowPredict> {
 
 */
 
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -106,31 +102,29 @@ class _SolutionScreenLowPredictState extends State<SolutionScreenLowPredict> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
-                    decoration:InputDecoration(border: OutlineInputBorder()) ,
+                    decoration: InputDecoration(border: OutlineInputBorder()),
                     onChanged: (value) {
                       message = value;
                     },
                   ),
                 ),
-               /* Text(downloadURL),
+                /* Text(downloadURL),
                 Text(userEmail),*/
                 ElevatedButton(
                   onPressed: () {
                     _firestore.collection('uploads').add({
                       'downloadURL': downloadURL,
                       'sender': userEmail,
-                      'message':message,
-                      'lat':'dummy',
-                      'long':'dummy',
+                      'message': message,
+                      'lat': 'dummy',
+                      'long': 'dummy',
                     });
                     Navigator.pushNamed(context, FeedbackScreen.id);
                   },
                   child: Text(
                     'Send',
+                  ),
                 ),
-                ),
-
-
               ],
             ),
           ),

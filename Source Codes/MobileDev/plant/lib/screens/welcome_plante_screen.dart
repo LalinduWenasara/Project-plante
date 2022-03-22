@@ -23,7 +23,6 @@ class _WelcomePlanteState extends State<WelcomePlante> {
         children: [
           Container(
             height: size.height * 0.22,
-
           ),
           Container(
             height: size.height * 0.12,
@@ -38,12 +37,10 @@ class _WelcomePlanteState extends State<WelcomePlante> {
                 child: Text(
               'Project Plante',
               style: TextStyle(
-                fontSize: 22,
-                color: Colors.black45,
-                fontFamily:'RobotoMono'
-              ),
+                  fontSize: 22,
+                  color: Colors.black45,
+                  fontFamily: 'RobotoMono'),
             )),
-
           ),
           Container(
             height: size.height * 0.42,
@@ -53,40 +50,30 @@ class _WelcomePlanteState extends State<WelcomePlante> {
               children: [
                 Container(
                   width: size.width * 0.6,
-
                 ),
                 Container(
                   width: size.width * 0.4,
-
                   child: Padding(
                     padding: const EdgeInsets.all(2.0),
                     child: Center(
                       child: TextButton(
-
-
-
-
-
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(kHarlequin),
-                          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                          shape:MaterialStateProperty.all<OutlinedBorder>(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(kHarlequin),
+                          foregroundColor:
+                              MaterialStateProperty.all<Color>(Colors.white),
+                          shape: MaterialStateProperty.all<OutlinedBorder>(
                               RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(30.0),
-                                ),
-                              )),
-
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(30.0),
+                            ),
+                          )),
                         ),
                         onPressed: () {
+                          Navigator.pop(context);
+                          Navigator.pushNamed(context, LoginWithGoogle.id);
 
-
-
-                            Navigator.pop(context);
-                            Navigator.pushNamed(context, LoginWithGoogle.id);
-
-                            //Go to login screen.
-
+                          //Go to login screen.
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(2.0),
@@ -99,7 +86,6 @@ class _WelcomePlanteState extends State<WelcomePlante> {
               ],
             ),
             height: size.height * 0.1,
-
           ),
           Container(
             height: size.height * 0.04,

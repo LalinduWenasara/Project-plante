@@ -48,27 +48,13 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body:
-
-
-
-
-      Padding(
+      body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
-
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-
-
-
-
-
-
-
             Row(
-
               children: <Widget>[
                 Hero(
                   tag: 'plant_logo',
@@ -86,7 +72,6 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                       color: Colors.black87,
                     ),
                     child: AnimatedTextKit(
-
                       animatedTexts: [
                         TypewriterAnimatedText('Plant'),
                         TypewriterAnimatedText('Design first, then plant'),
@@ -107,9 +92,6 @@ class _WelcomeScreenState extends State<WelcomeScreen>
             SizedBox(
               height: 48.0,
             ),
-
-
-
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 4.0),
               child: KroundedButton(

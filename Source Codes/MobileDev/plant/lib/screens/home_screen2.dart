@@ -119,39 +119,61 @@ class _Home5State extends State<Home5> {
                 Row(
                   children: [
                     ReusableCard_2(
-                      colour: Colors.green,
+
                       cardChild: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Container(
                             height: size.height * 0.1,
                             width: size.width *0.2,
-                            child: Text('Select Plant')),
+                            child: Column(
+                              children: [
+                                Container(
+                                    height: size.height * 0.06,
+                                    child: Image.asset('images/flower-pot.png')),
+                                Text('Plant'),
+                              ],
+                            )),
                       ),
                       onPress: () {
                         Navigator.pushNamed(context, SelectPlant.id);
                       },
                     ),
                     ReusableCard_2(
-                      colour: Colors.green,
+
                       cardChild: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Container(
                             height: size.height * 0.1,
                             width: size.width *0.2,
-                            child: Text('Profile')),
+                            child: Column(
+                              children: [
+                                Container(
+                                    height: size.height * 0.06,
+                                    child: Image.asset('images/profile.png')),
+                                Text('Profile'),
+                              ],
+                            )),
                       ),
                       onPress: () {
                         Navigator.pushNamed(context, SelectPlant.id);
                       },
                     ),
                     ReusableCard_2(
-                      colour: Colors.green,
+
                       cardChild: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Container(
                             height: size.height * 0.1,
                             width: size.width *0.2,
-                            child: Text('Messages')),
+   // images/comment.png
+                            child: Column(
+                              children: [
+                                Container(
+                                    height: size.height * 0.06,
+                                    child: Image.asset('images/comment.png')),
+                                Text('Message'),
+                              ],
+                            )),
                       ),
                       onPress: () {
                         Navigator.pushNamed(context, ChatScreen.id);
@@ -162,13 +184,13 @@ class _Home5State extends State<Home5> {
                 Row(
                   children: [
                     ReusableCard_2(
-                      colour: Colors.green,
+
                       cardChild: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Container(
                             height: size.height * 0.1,
                             width: size.width *0.2,
-                            child: Text('Dummy')),
+                            child: Text('')),
                       ),
                       onPress: () {
                         Navigator.pushNamed(context, FeedbackScreen.id);
@@ -188,13 +210,13 @@ class _Home5State extends State<Home5> {
                       },
                     ),
                     ReusableCard_2(
-                      colour: Colors.green,
+
                       cardChild: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Container(
                             height: size.height * 0.1,
                             width: size.width *0.2,
-                            child: Text('Dummy')),
+                            child: Text('')),
                       ),
                       onPress: () {
                         Navigator.pushNamed(context, SelectPlant.id);
@@ -210,9 +232,9 @@ class _Home5State extends State<Home5> {
             ),
           ),
           Container(
-            height: size.height * 0.2,
+            height: size.height * 0.1,
             decoration: BoxDecoration(
-              color: Colors.blue,
+
               borderRadius: BorderRadius.circular(20.0),
             ),
           ),

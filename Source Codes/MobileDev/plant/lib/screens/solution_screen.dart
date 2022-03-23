@@ -1,14 +1,12 @@
 // @dart=2.9
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:plant/screens/treatments_screen.dart';
 import 'package:tflite/tflite.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'dart:io' as io;
-import 'package:path/path.dart';
+
 
 class SolutionScreen extends StatefulWidget {
   static const String id = 'SolutionScreen';
@@ -54,7 +52,7 @@ class _SolutionScreenState extends State<SolutionScreen> {
     size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Test"),
+        title: Text("Prediction"),
       ),
       body: Column(
         children: [

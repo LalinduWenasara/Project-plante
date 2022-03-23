@@ -1,16 +1,13 @@
 // @dart=2.9
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:tflite/tflite.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'dart:io' as io;
-import 'package:path/path.dart';
-
+import 'package:geolocator/geolocator.dart';
 import 'feedback_screen.dart';
+
+
+
 
 class SolutionScreenLowPredict extends StatefulWidget {
   static const String id = 'SolutionScreenLow';
@@ -37,12 +34,16 @@ class _SolutionScreenLowPredictState extends State<SolutionScreenLowPredict> {
   String userEmail, userImage, testU1, testU2, testU3;
   String message;
   Size size;
+  Position position;
+  var now = new DateTime.now();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getCurrentUser();
+    getCurrentLocation();
+    print(now);
   }
 
   void getCurrentUser() async {
@@ -57,21 +58,11 @@ class _SolutionScreenLowPredictState extends State<SolutionScreenLowPredict> {
       print('check2');
     }
   }
-/*
-  void MessagesStram() async {
 
-    await for (var snapshots in   _firestore.collection('messages').snapshots()) {
-      for (var m in snapshots.docs) {
-        print(m.data());
-      }
-    }
-  }
-
-
-*/
 
   @override
   Widget build(BuildContext context) {
+    size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: Text("Test"),
@@ -87,7 +78,7 @@ class _SolutionScreenLowPredictState extends State<SolutionScreenLowPredict> {
                 Text("Low Prediction"),
                 // Text(value1),
                 Container(
-                  height: 200.0,
+                  height: size.height * 0.5,
                   child: Image.file(image),
                 ),
                 Center(
@@ -97,7 +88,7 @@ class _SolutionScreenLowPredictState extends State<SolutionScreenLowPredict> {
                     child: Text(
                         "Please tell us what are the symptoms as you can see.we will contact you soon")),
                 SizedBox(
-                  height: 50,
+                  height: size.height * 0.05,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -116,8 +107,10 @@ class _SolutionScreenLowPredictState extends State<SolutionScreenLowPredict> {
                       'downloadURL': downloadURL,
                       'sender': userEmail,
                       'message': message,
-                      'lat': 'dummy',
-                      'long': 'dummy',
+                      'lat': position.latitude,
+                      'long': position.longitude,
+                      'time': now,
+
                     });
                     Navigator.pushNamed(context, FeedbackScreen.id);
                   },
@@ -131,5 +124,12 @@ class _SolutionScreenLowPredictState extends State<SolutionScreenLowPredict> {
         ],
       ),
     );
+  }
+
+  Future<void> getCurrentLocation() async {
+    position = await Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+
+    print(position);
   }
 }

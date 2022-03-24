@@ -4,6 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../constants.dart';
+
 class Treatment extends StatefulWidget {
   static const String id = 'TreatmentScreen';
 
@@ -42,6 +44,7 @@ class _TreatmentState extends State<Treatment> {
       return Scaffold(
         appBar: AppBar(
           title: Text(value1),
+          backgroundColor:kAppBarColor,
         ),
         body: Text(thetreatment),
       );
@@ -49,6 +52,7 @@ class _TreatmentState extends State<Treatment> {
       return Scaffold(
         appBar: AppBar(
           title: Text(value1),
+          backgroundColor: kAppBarColor,
         ),
         body: Text('OOps Connection Error'),
       );

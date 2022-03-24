@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'dart:io' as io;
 import 'package:path/path.dart' as paths;
+import '../constants.dart';
 import 'solution_screen.dart';
 
 class Home extends StatefulWidget {
@@ -164,7 +165,7 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: Text(''),
         elevation: 0.0,
-        backgroundColor: Colors.black,
+        backgroundColor: kAppBarColor,
       ),
       backgroundColor: Colors.white,
       body: Container(

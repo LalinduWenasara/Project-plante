@@ -43,6 +43,7 @@ const kBackgroundColor = Color(0xFFF9F8FD);
 const double kDefaultPadding = 20.0;
 // Colors that we use in home
 const kHomeAppbarColor = Color(0xFF0C9869);
+const kAppBarColor = Colors.black87;
 
 
 

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:plant/screens/mysplashscreen.dart';
 
+import '../constants.dart';
 import '../reusable.dart';
 
 
@@ -15,8 +16,10 @@ class SelectPlant extends StatefulWidget {
 class _SelectPlantState extends State<SelectPlant> {
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(title: Text('Select The Plant'),),
+      appBar: AppBar(title: Text('Select The Plant'),
+        backgroundColor:kAppBarColor),
       body: Column(
         children: [
           Padding(
@@ -25,7 +28,13 @@ class _SelectPlantState extends State<SelectPlant> {
               borderRadius: BorderRadius.circular(20),
             ),
           ),
-          ReusableCard_2(colour: Colors.amber,onPress: (){Navigator.pushNamed(context,MySplashScreen.id);},cardChild: Text('Tomato'),),
+          ReusableCard_2(colour: kHarlequin,onPress: (){Navigator.pushNamed(context,MySplashScreen.id);},cardChild: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Container(
+                height: size.height * 0.1,
+                width: size.width *0.5,
+                child: Text('tomato')),
+          ),),
         ],
       ),
     );

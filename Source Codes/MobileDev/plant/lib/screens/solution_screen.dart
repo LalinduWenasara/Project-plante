@@ -7,6 +7,8 @@ import 'package:tflite/tflite.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'dart:io' as io;
 
+import '../constants.dart';
+
 
 class SolutionScreen extends StatefulWidget {
   static const String id = 'SolutionScreen';
@@ -53,6 +55,7 @@ class _SolutionScreenState extends State<SolutionScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Prediction"),
+        backgroundColor: kAppBarColor,
       ),
       body: Column(
         children: [

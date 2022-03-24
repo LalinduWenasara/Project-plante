@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import '../constants.dart';
 import 'feedback_screen.dart';
 
 
@@ -66,6 +67,7 @@ class _SolutionScreenLowPredictState extends State<SolutionScreenLowPredict> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Test"),
+        backgroundColor: kAppBarColor,
       ),
       body: Column(
         children: [

@@ -197,13 +197,13 @@ class _Home5State extends State<Home5> {
                       },
                     ),
                     ReusableCard_2(
-                      colour: Colors.green,
+
                       cardChild: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Container(
                             height: size.height * 0.1,
                             width: size.width *0.2,
-                            child: Text('Dummy')),
+                            child: Text('feedback')),
                       ),
                       onPress: () {
                         Navigator.pushNamed(context, SelectPlant.id);
@@ -216,7 +216,7 @@ class _Home5State extends State<Home5> {
                         child: Container(
                             height: size.height * 0.1,
                             width: size.width *0.2,
-                            child: Text('')),
+                            child: Text('notification')),
                       ),
                       onPress: () {
                         Navigator.pushNamed(context, SelectPlant.id);

@@ -6,24 +6,53 @@ import Home from './Home';
 import Login from './Login';
 //import { useState } from 'react';
 import { db, auth } from './firebase-config';
-import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc } from "firebase/firestore";
+import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc, Timestamp } from "firebase/firestore";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
 } from "firebase/auth";
+import { Button,Alert} from 'bootstrap';
+//import 'bootstrap/dist/css/bootstrap.min.css'
+//import style from './stylemod.css'
+import image from './images/loginsvg.svg';
+
 
 
 function App() {
 
+  const navstyleq = {
+    color: "DodgerBlue",
+    fontFamily: "Arial"
+  
+  };
+  const mystylecontainer = {
+    margin:"5%",
+    fontFamily: "Arial"
+     
+    
+  };
+  
+  const mystylebackground = {
+   
+    padding: "10px",
+    fontFamily: "Arial"
+    
+    
+  };
+
+
+
+  
+  const mystyle = {
+    backgroundColor: "DodgerBlue",
+    fontFamily: "Arial"
+    
+  };
 
   // login related
 
-  const [registerEmail, setRegisterEmail] = useState("");
-  const [registerPassword, setRegisterPassword] = useState("");
-  const [loginEmail, setLoginEmail] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
@@ -104,35 +133,6 @@ function App() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   /* this things need move to web page */
 
   const [users, setUsers] = useState([]);
@@ -168,6 +168,13 @@ function App() {
     await deleteDoc(userDoc);
   };
 
+  const deleteUploads = async (id) => {
+    const uploadedDoc = doc(db, "uploads", id);
+    await deleteDoc(uploadedDoc);
+  };
+
+
+
 
 
 
@@ -192,11 +199,6 @@ function App() {
 
 
 
-
-
-
-
-
   }, [])
   return (
     <div className="App">
@@ -204,34 +206,22 @@ function App() {
 
       {user ? (
         <section>
+          
+          <nav class="navbar navbar-light" style={navstyleq}>
+          <h4> {user?.email} </h4>
+          
 
-          <h4> User Logged In: </h4>
-          {user?.email}
+          <button type="button" class="btn btn-outline-success" onClick={logout}> Sign Out </button>
+  
+</nav>
 
-          <button onClick={logout}> Sign Out </button>
+          
 
-
-
-
-
-          <div><h1>---------------------------------------------------------------------------------------------------------------------
+          <div><h1>-------------------------------------------------------------------------------------
           </h1></div>
           <input placeholder="Name" onChange={(event) => { setNewName(event.target.value); }} />
           <input type="number" placeholder="age" onChange={(event) => { setNewAge(event.target.value); }} />
           <button onClick={createUser}>Create User</button>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
           {users.map((users) => {
@@ -246,7 +236,7 @@ function App() {
               </h1>
               <button type="button" class="btn btn-primary"
                 onClick={() => {
-                  deleteUser(users.id);
+                  createUser(users.id);
                 }}
               >
                 {" "}
@@ -255,42 +245,19 @@ function App() {
             </div>)
           })}
 
-          <div><h1>---------------------------------------------------------------------------------------------------------------------
-          </h1></div>
 
-          {uploadinfo.map((up) => {
-            return (<div>
-              {""}
-
-              <img src={up.downloadURL}></img>
-              <h2>
-                message:{up.message}
-              </h2>
-              <h1>
-                sender:{up.sender}
-              </h1>
-              <button type="button" class="btn btn-primary"
-                onClick={() => {
-                  deleteUser(users.id);
-                }}
-              >
-                {" "}
-                Delete User
-              </button>
-            </div>)
-          }
-
-
-
-
-
-          )}
-
-          <div><h1>---------------------------------------------------------------------------------------------------------------------
+          <div><h1>-------------------------------------------------------------------------------
           </h1></div>
 
 
           {uploadinfo.map((up) => {
+            
+            var myTime =up.time;
+            
+
+            var foo = myTime.toString();
+
+          
             return (<div class="col-sm-4">
               {""}
               <div class="card" >
@@ -298,10 +265,20 @@ function App() {
                 <div class="card-body">
                   <h5 class="card-title">{up.sender}</h5>
                   <p class="card-text">{up.message}</p>
-                  <p class="card-text"><small class="text-muted">time</small></p>
+                  <p class="card-text">{up.long}</p>
+                  <p class="card-text">{up.lat}</p>
+                  <p class="card-text"><small class="text-muted">time+{foo}</small></p>
                 </div>
               </div>
-              <Card />
+              <card />
+              <button type="button" class="btn btn-outline-success"
+                onClick={() => {
+                  deleteUploads(up.id);
+                }}
+              >
+                {" "}
+                Delete Post
+              </button>
             </div>
 
 
@@ -321,12 +298,20 @@ function App() {
 
 
       ) : (
-        <section>
+        <section style={mystylebackground}>
           
-
-
+          <div class="container" style={mystylecontainer}>
+          <div class="row content">
+          <div class="col-md-6 mb-3">
+         
+          <img src={image} class="img-fluid" alt="Responsive image"></img>
+            </div>
+            <div class="col-md-6">
+          <div >
+          <div class="form-group">
+          <label for="email">Email</label>
           
-          <input
+          <input class="form-control"
             placeholder="email"
             onChange={(event) => {
               setemailAddress(event.target.value);
@@ -334,20 +319,27 @@ function App() {
                     
           />
             <h1>{emailError}</h1>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
          
-          <input
-            placeholder="Password" type="password"
+         < input class="form-control"
+            placeholder="password" type="password"
             onChange={(event) => {
               setauthPassword(event.target.value);
             }}
             
           />
           <h1>{passwordError}</h1>
+        </div>
 
+
+         
           <div className='buttonContainer'>
           {hasAccount?(
           <>
-          <button onClick={register}> sign up</button>
+          <button onClick={register} type="button" class="btn btn-outline-success"> sign up</button>
           <p>
             Don't have an account?
             <span onClick={()=>setHasAccount(false)}>Signup</span>
@@ -355,7 +347,7 @@ function App() {
           </>
           ):(
             <>
-            <button onClick={login}>sign in</button>
+            <button onClick={login} type="button" class="btn btn-outline-success">sign in</button>
           <p>
             have an account?
             <span onClick={()=>setHasAccount(true)}>Signup</span>
@@ -363,22 +355,10 @@ function App() {
           </>
           )}
           </div>
-       
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+          </div>
+          </div>
+          </div>
+          </div>
 
         </section>
       )}

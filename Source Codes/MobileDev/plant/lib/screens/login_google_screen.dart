@@ -28,9 +28,14 @@ class _LoginWithGoogleState extends State<LoginWithGoogle> {
           Container(
             height: size.height * 0.8,
             decoration: BoxDecoration(
-              color: kBlack,
-              borderRadius: BorderRadius.circular(20.0),
+             // color: kBlack,
+              borderRadius: BorderRadius.circular(20.0)
+              ,
+              image: DecorationImage(
+                  image: AssetImage("images/wallpaper1.jpg"),
+                  fit: BoxFit.cover),
             ),
+
           ),
           Center(
               child: OutlinedButton.icon(

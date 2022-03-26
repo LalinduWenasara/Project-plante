@@ -68,10 +68,11 @@ class _Home5State extends State<Home5> {
                     Row(
                       children: [
                         SizedBox(
-                          width: size.width*0.2,
+                          width: size.width*0.1,
                         ),
                         CircleAvatar(
                           backgroundImage: NetworkImage(userImage),
+                          radius: size.width*0.1,
                         ),
                         SizedBox(
                           width: size.width*0.4,
@@ -88,8 +89,8 @@ class _Home5State extends State<Home5> {
                     ),
                     Column(
                       children: [
-                        Text(userEmail),
-                        Text(testU1),
+                        Text(userEmail,style: TextStyle(fontFamily: 'Cairo',fontWeight: FontWeight.w800),),
+                        Text(testU1,style: TextStyle(fontFamily: 'Cairo',fontWeight: FontWeight.w800),),
                       ],
                     ),
 

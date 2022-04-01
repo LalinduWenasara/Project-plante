@@ -92,3 +92,20 @@
   background-color:  #00ac96;
   color: #fff;
 }
+
+nav{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 10vh;
+  background: rgb(4, 63, 14);
+  color: white;
+}
+
+.navLinks{
+  width: 50%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
+}

@@ -137,40 +137,7 @@ function App2() {
   const uploadsCollectionREf = collection(db, "uploads")
 
 
-  //grab info and store,for thar create two states
-  const [newName, setNewName] = useState([]);
-  const [newAge, setNewAge] = useState([0]);//[0] because its a number
-
-
-  //create user function
-
-  const createUser = async () => {
-    await addDoc(useersCollectionREf, { name: newName, age: Number(newAge) });
-
-  }
-
-  //update user function
-
-  const updateUserAge = async (uid, age) => {
-
-    const userDoc = doc(db, "users", uid)//identifing the doc to update
-    const newField = { age: age + 1 };
-    await updateDoc(userDoc, newField);
-    ////<button onClick={updateUserAge(users.id,users.age)} >{""}increase age</button>
-  }
-  const deleteUser = async (id) => {
-    const userDoc = doc(db, "users", id);
-    await deleteDoc(userDoc);
-  };
-
-  const deleteUploads = async (id) => {
-    const uploadedDoc = doc(db, "uploads", id);
-    await deleteDoc(uploadedDoc);
-  };
-
-
-
-
+  
 
 
   useEffect(() => {
@@ -203,24 +170,14 @@ function App2() {
       {user ? (
         <section>
           
-          <nav class="navbar navbar-light" style={navstyleq}>
-          <h4> {user?.email} </h4>
-          
-
-          <button type="button" class="btn btn-outline-success" onClick={logout}> Sign Out </button>
          
-</nav>
 
           
 
           <div><h1>-------------------------------------------------------------------------------------
           <Blogs />
           </h1></div>
-          <input placeholder="Name" onChange={(event) => { setNewName(event.target.value); }} />
-          <input type="number" placeholder="age" onChange={(event) => { setNewAge(event.target.value); }} />
-          <button onClick={createUser}>Create User</button>
-
-
+         
           {users.map((users) => {
             return (<div>
               {""}<h1>
@@ -231,66 +188,20 @@ function App2() {
               <h1>
                 Age:{users.id}
               </h1>
-              <button type="button" class="btn btn-primary"
-                onClick={() => {
-                  createUser(users.id);
-                }}
-              >
-                {" "}
-                Delete User
-              </button>
+              
+                
             </div>)
           })}
 
 
           <div><h1>-------------------------------------------------------------------------------
-          </h1></div>
-
-
-          {uploadinfo.map((up) => {
-            
-            var myTime =up.time;
-            
-
-            var foo = myTime.toString();
-
+          </h1>
+          <h4>Welcome {user?.email} </h4>
           
-            return (<div class="col-sm-4">
-              {""}
-              <div class="card" >
-                <img src={up.downloadURL} alt="..."></img>
-                <div class="card-body">
-                  <h5 class="card-title">{up.sender}</h5>
-                  <p class="card-text">{up.message}</p>
-                  <p class="card-text">{up.long}</p>
-                  <p class="card-text">{up.lat}</p>
-                  <p class="card-text"><small class="text-muted">time+{foo}</small></p>
-                </div>
-              </div>
-              <card />
-              <button type="button" class="btn btn-outline-success"
-                onClick={() => {
-                  deleteUploads(up.id);
-                }}
-              >
-                {" "}
-                Delete Post
-              </button>
-            </div>
+          </div>
 
 
-
-            )
-
-
-
-          }
-
-          )
-
-
-
-          }
+         
         </section>
 
 

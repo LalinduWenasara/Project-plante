@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:plant/constants.dart';
 import 'package:plant/screens/login_google_screen.dart';
 import 'package:plant/screens/select_plant_screen.dart';
+import 'package:plant/screens/notification_screen.dart';
 
 import '../reusable.dart';
 import 'chat_screen.dart';
@@ -62,20 +63,20 @@ class _Home5State extends State<Home5> {
             height: size.height * 0.3,
             child: Center(
                 child: Row(
-                  children: [
-                    Column(
               children: [
+                Column(
+                  children: [
                     Row(
                       children: [
                         SizedBox(
-                          width: size.width*0.1,
+                          width: size.width * 0.1,
                         ),
                         CircleAvatar(
                           backgroundImage: NetworkImage(userImage),
-                          radius: size.width*0.1,
+                          radius: size.width * 0.1,
                         ),
                         SizedBox(
-                          width: size.width*0.4,
+                          width: size.width * 0.4,
                         ),
                         ElevatedButton(
                             onPressed: () async {
@@ -89,15 +90,22 @@ class _Home5State extends State<Home5> {
                     ),
                     Column(
                       children: [
-                        Text(userEmail,style: TextStyle(fontFamily: 'Cairo',fontWeight: FontWeight.w800),),
-                        Text(testU1,style: TextStyle(fontFamily: 'Cairo',fontWeight: FontWeight.w800),),
+                        Text(
+                          userEmail,
+                          style: TextStyle(
+                              fontFamily: 'Cairo', fontWeight: FontWeight.w800),
+                        ),
+                        Text(
+                          testU1,
+                          style: TextStyle(
+                              fontFamily: 'Cairo', fontWeight: FontWeight.w800),
+                        ),
                       ],
                     ),
-
-              ],
-            ),
                   ],
-                )),
+                ),
+              ],
+            )),
             decoration: BoxDecoration(
               color: Colors.green.shade100,
               borderRadius: BorderRadius.only(
@@ -111,26 +119,28 @@ class _Home5State extends State<Home5> {
             width: size.width,
             child: Column(
               children: [
-                Center(child: Text('Services',style: TextStyle(
-                    fontSize: 22,
-                    color: Colors.black45,
-                    fontFamily:'RobotoMono'
-                ),)
-                ),
+                Center(
+                    child: Text(
+                  'Services',
+                  style: TextStyle(
+                      fontSize: 22,
+                      color: Colors.black45,
+                      fontFamily: 'RobotoMono'),
+                )),
                 Row(
                   children: [
                     ReusableCard_2(
-
                       cardChild: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Container(
                             height: size.height * 0.1,
-                            width: size.width *0.2,
+                            width: size.width * 0.2,
                             child: Column(
                               children: [
                                 Container(
                                     height: size.height * 0.06,
-                                    child: Image.asset('images/flower-pot.png')),
+                                    child:
+                                        Image.asset('images/flower-pot.png')),
                                 Text('Plant'),
                               ],
                             )),
@@ -140,12 +150,11 @@ class _Home5State extends State<Home5> {
                       },
                     ),
                     ReusableCard_2(
-
                       cardChild: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Container(
                             height: size.height * 0.1,
-                            width: size.width *0.2,
+                            width: size.width * 0.2,
                             child: Column(
                               children: [
                                 Container(
@@ -160,13 +169,12 @@ class _Home5State extends State<Home5> {
                       },
                     ),
                     ReusableCard_2(
-
                       cardChild: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Container(
                             height: size.height * 0.1,
-                            width: size.width *0.2,
-   // images/comment.png
+                            width: size.width * 0.2,
+                            // images/comment.png
                             child: Column(
                               children: [
                                 Container(
@@ -185,42 +193,53 @@ class _Home5State extends State<Home5> {
                 Row(
                   children: [
                     ReusableCard_2(
-
                       cardChild: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Container(
                             height: size.height * 0.1,
-                            width: size.width *0.2,
+                            width: size.width * 0.2,
                             child: Text('')),
+                      ),
+                      onPress: () {},
+                    ),
+                    ReusableCard_2(
+                      cardChild: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Container(
+                            height: size.height * 0.1,
+                            width: size.width * 0.2,
+                            // images/comment.png
+                            child: Column(
+                              children: [
+                                Container(
+                                    height: size.height * 0.06,
+                                    child: Image.asset('images/feedback.png')),
+                                Text('Feedback'),
+                              ],
+                            )),
                       ),
                       onPress: () {
                         Navigator.pushNamed(context, FeedbackScreen.id);
                       },
                     ),
                     ReusableCard_2(
-
                       cardChild: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Container(
                             height: size.height * 0.1,
-                            width: size.width *0.2,
-                            child: Text('feedback')),
+                            width: size.width * 0.2,
+                            // images/comment.png
+                            child: Column(
+                              children: [
+                                Container(
+                                    height: size.height * 0.06,
+                                    child: Image.asset('images/notification.png')),
+                                Text('Notification'),
+                              ],
+                            )),
                       ),
                       onPress: () {
-                        Navigator.pushNamed(context, SelectPlant.id);
-                      },
-                    ),
-                    ReusableCard_2(
-
-                      cardChild: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Container(
-                            height: size.height * 0.1,
-                            width: size.width *0.2,
-                            child: Text('notification')),
-                      ),
-                      onPress: () {
-                        Navigator.pushNamed(context, SelectPlant.id);
+                        Navigator.pushNamed(context, NotificationScreen.id);
                       },
                     ),
                   ],
@@ -228,14 +247,12 @@ class _Home5State extends State<Home5> {
               ],
             ),
             decoration: BoxDecoration(
-
               borderRadius: BorderRadius.circular(20.0),
             ),
           ),
           Container(
             height: size.height * 0.1,
             decoration: BoxDecoration(
-
               borderRadius: BorderRadius.circular(20.0),
             ),
           ),

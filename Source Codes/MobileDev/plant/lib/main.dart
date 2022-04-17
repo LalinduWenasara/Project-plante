@@ -6,14 +6,17 @@ import 'package:plant/screens/feedback_screen.dart';
 import 'package:plant/screens/home_screen2.dart';
 import 'package:plant/screens/login_screen.dart';
 import 'package:plant/screens/notification_screen.dart';
+import 'package:plant/screens/profile_screen.dart';
 import 'package:plant/screens/registration_screen.dart';
 import 'package:plant/screens/select_plant_screen.dart';
+import 'package:plant/screens/setprofile_screen.dart';
 import 'package:plant/screens/solution_screen.dart';
 import 'package:plant/screens/welcome_plante_screen.dart';
 import 'package:plant/screens/welcome_screen.dart';
 import 'package:plant/screens/home_screen.dart';
 import 'package:plant/screens/login_google_screen.dart';
 import 'package:plant/screens/mysplashscreen.dart';
+import 'package:plant/screens/profile_screen.dart';
 
 
 
@@ -46,7 +49,8 @@ class MyApp extends StatelessWidget {
         SolutionScreen.id:(context)=>SolutionScreen(),
         NotificationScreen.id:(context)=>NotificationScreen(),
         FeedbackScreen.id:(context)=>FeedbackScreen(),
-
+        ProfileScreen.id:(context)=>ProfileScreen(),
+        SetProfileScreen.id:(context)=>SetProfileScreen(),
       },
     );
   }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:plant/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:timeago/timeago.dart' as timeago;
 
 
 
@@ -23,11 +23,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
   String useremail2 = ' ';
   String messagetext;
 
-/*
-  void MessagesStram() async {
 
-  }
-*/
+
   void geturlfromup(String id3) async {
     final messages1 = await _firestore.collection('uploads').doc(id3).get();
     {
@@ -35,19 +32,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
        messages1.data()['downloadURL'];
     }
   }
-/*
-  Future<String> Mgeturlfromuplord(value1) async {
-    final messages1 = await _firestore
-        .collection('uploads')
-        .where('itemid', isEqualTo: value1)
-        .get();
-    for (var m in messages1.docs) {
-      // print(m.data());
-      var xx = m.data()['downloadURL'];
-      print(xx.toString());
-      return xx.toString();
-    }
-  }*/
+
 
   @override
   void initState() {
@@ -93,22 +78,21 @@ class _NotificationScreenState extends State<NotificationScreen> {
             }
             return ListView(
               children: snapshot.data.docs.map((document)  {
-
+                Timestamp timestamp = document['time'];
                 return Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Container(
                       height: size.height*0.2,
-
-                      decoration: BoxDecoration(
-                        color: Colors.teal,
-                        borderRadius: BorderRadius.circular(6.0),
-                      ),
+                      color: kHarlequin,
                       child: Row(
                         children: [
                           Container(
                               //height: size.height * 0.1,
 
                               // images/comment.png
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(6.0),
+                              ),
                               child: Container(
                                  padding: const EdgeInsets.all(6.0),
                                 //  height: size.height * 0.5,
@@ -116,13 +100,22 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                   child:
                                  Image.network(document['imagecon']))),
 
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: Text(
-                                document['message'],
-                              overflow: TextOverflow.ellipsis,
+                          Column(
+                            children: [
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: Text(
+                                    document['message'],
+                                  overflow: TextOverflow.ellipsis,
 
+
+                                  ),
                               ),
+                              Align(
+                                  alignment: Alignment.bottomLeft,
+
+                                  child: Text(timeago.format(DateTime.tryParse(timestamp.toDate().toString())).toString())),
+                            ],
                           ),
 
                         ],

@@ -1,11 +1,15 @@
 // @dart=2.9
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:plant/constants.dart';
 import 'package:plant/screens/login_google_screen.dart';
+import 'package:plant/screens/profile_screen.dart';
 import 'package:plant/screens/select_plant_screen.dart';
 import 'package:plant/screens/notification_screen.dart';
+import 'package:plant/screens/setprofile_screen.dart';
+import 'package:plant/screens/soluton_screen_low_predict.dart';
 
 import '../reusable.dart';
 import 'chat_screen.dart';
@@ -45,6 +49,45 @@ class _Home5State extends State<Home5> {
       print('check2');
     }
   }
+  void loadProfile()async{
+    String displayName,Address,NIC,email,mobileNu;
+    final _firestore = FirebaseFirestore.instance;
+    final messages1 = await _firestore
+        .collection('userprofile')
+        .where('email', isEqualTo: userEmail)
+        .get();
+    for (var m in messages1.docs) {
+      // print(m.data());
+      var xx = m.data()['displayName'];
+      displayName = xx.toString();
+      Address=m.data()['Address'].toString();
+      NIC=m.data()['NIC'].toString();
+      mobileNu=m.data()['mobileNu'].toString();
+      email=m.data()['email'].toString();
+
+    }
+
+
+    if (displayName != null) {
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) =>
+            ProfileScreen(
+              Address: Address,
+              displayName: displayName,
+              NIC: NIC,
+              mobileNu: mobileNu,
+
+
+            ),
+      ));
+    }
+    else{
+      Navigator.pushNamed(context,SetProfileScreen.id);
+    }
+
+    }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -165,7 +208,8 @@ class _Home5State extends State<Home5> {
                             )),
                       ),
                       onPress: () {
-                        Navigator.pushNamed(context, SelectPlant.id);
+                        loadProfile();
+
                       },
                     ),
                     ReusableCard_2(

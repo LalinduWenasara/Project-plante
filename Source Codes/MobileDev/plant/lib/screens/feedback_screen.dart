@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
+import '../constants.dart';
+
 
 class FeedbackScreen extends StatefulWidget {
   static const String id = 'feedback';
@@ -50,6 +52,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('feedback'),
+               backgroundColor: kAppBarColor,
       ),
       body: Column(
         children: [

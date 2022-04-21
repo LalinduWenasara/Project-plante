@@ -93,214 +93,221 @@ class _Home5State extends State<Home5> {
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Column(
-        children: [
-          Container(
-            height: size.height * 0.1,
-            decoration: BoxDecoration(
-              color: Colors.teal,
-              borderRadius: BorderRadius.circular(20.0),
-            ),
-          ),
-          Container(
-            height: size.height * 0.3,
-            child: Center(
-                child: Row(
-              children: [
-                Column(
-                  children: [
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: size.width * 0.1,
-                        ),
-                        CircleAvatar(
-                          backgroundImage: NetworkImage(userImage),
-                          radius: size.width * 0.1,
-                        ),
-                        SizedBox(
-                          width: size.width * 0.4,
-                        ),
-                        ElevatedButton(
-                            onPressed: () async {
-                              await signOutGoogle();
-                              setState(() {
-                                userEmail = '';
-                              });
-                            },
-                            child: Text('Logout')),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Text(
-                          userEmail,
-                          style: TextStyle(
-                              fontFamily: 'Cairo', fontWeight: FontWeight.w800),
-                        ),
-                        Text(
-                          testU1,
-                          style: TextStyle(
-                              fontFamily: 'Cairo', fontWeight: FontWeight.w800),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            )),
-            decoration: BoxDecoration(
-              color: Colors.green.shade100,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(36),
-                bottomRight: Radius.circular(36),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Container(
+              height: size.height * 0.1,
+              decoration: BoxDecoration(
+                //color: Colors.teal,
+                borderRadius: BorderRadius.circular(20.0),
               ),
             ),
-          ),
-          Container(
-            height: size.height * 0.4,
-            width: size.width,
-            child: Column(
-              children: [
-                Center(
-                    child: Text(
-                  'Services',
-                  style: TextStyle(
-                      fontSize: 22,
-                      color: Colors.black45,
-                      fontFamily: 'RobotoMono'),
+            Container(
+              height: size.height * 0.2,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Center(
+                    child: Row(
+                  children: [
+                    Column(
+                      children: [
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: size.width * 0.1,
+                            ),
+                            CircleAvatar(
+                              backgroundImage: NetworkImage(userImage),
+                              radius: size.width * 0.1,
+                            ),
+                            SizedBox(
+                              width: size.width * 0.4,
+                            ),
+                            ElevatedButton(
+                                onPressed: () async {
+                                  await signOutGoogle();
+                                  setState(() {
+                                    userEmail = '';
+                                  });
+                                },
+                                child: Text('Logout')),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              userEmail,
+                              style: TextStyle(
+                                  fontFamily: 'Cairo', fontWeight: FontWeight.w800),
+                            ),
+                            Text(
+                              testU1,
+                              style: TextStyle(
+                                  fontFamily: 'Cairo', fontWeight: FontWeight.w800),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
                 )),
-                Row(
-                  children: [
-                    ReusableCard_2(
-                      cardChild: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Container(
-                            height: size.height * 0.1,
-                            width: size.width * 0.2,
-                            child: Column(
-                              children: [
-                                Container(
-                                    height: size.height * 0.06,
-                                    child:
-                                        Image.asset('images/flower-pot.png')),
-                                Text('Plant'),
-                              ],
-                            )),
+              ),
+              decoration: BoxDecoration(
+               color: Colors.green.shade100,
+                borderRadius: BorderRadius.circular(20.0),
+               /* borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(36),
+                  bottomRight: Radius.circular(36),
+                ),*/
+              ),
+            ),
+            Container(
+              height: size.height * 0.4,
+              width: size.width,
+              child: Column(
+                children: [
+                  Center(
+                      child: Text(
+                    'Services',
+                    style: TextStyle(
+                        fontSize: 22,
+                        color: Colors.black45,
+                        fontFamily: 'RobotoMono'),
+                  )),
+                  Row(
+                    children: [
+                      ReusableCard_2(
+                        cardChild: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Container(
+                              height: size.height * 0.1,
+                              width: size.width * 0.2,
+                              child: Column(
+                                children: [
+                                  Container(
+                                      height: size.height * 0.06,
+                                      child:
+                                          Image.asset('images/flower-pot.png')),
+                                  Text('Plant'),
+                                ],
+                              )),
+                        ),
+                        onPress: () {
+                          Navigator.pushNamed(context, SelectPlant.id);
+                        },
                       ),
-                      onPress: () {
-                        Navigator.pushNamed(context, SelectPlant.id);
-                      },
-                    ),
-                    ReusableCard_2(
-                      cardChild: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Container(
-                            height: size.height * 0.1,
-                            width: size.width * 0.2,
-                            child: Column(
-                              children: [
-                                Container(
-                                    height: size.height * 0.06,
-                                    child: Image.asset('images/profile.png')),
-                                Text('Profile'),
-                              ],
-                            )),
-                      ),
-                      onPress: () {
-                        loadProfile();
+                      ReusableCard_2(
+                        cardChild: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Container(
+                              height: size.height * 0.1,
+                              width: size.width * 0.2,
+                              child: Column(
+                                children: [
+                                  Container(
+                                      height: size.height * 0.06,
+                                      child: Image.asset('images/profile.png')),
+                                  Text('Profile'),
+                                ],
+                              )),
+                        ),
+                        onPress: () {
+                          loadProfile();
 
-                      },
-                    ),
-                    ReusableCard_2(
-                      cardChild: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Container(
-                            height: size.height * 0.1,
-                            width: size.width * 0.2,
-                            // images/comment.png
-                            child: Column(
-                              children: [
-                                Container(
-                                    height: size.height * 0.06,
-                                    child: Image.asset('images/comment.png')),
-                                Text('Message'),
-                              ],
-                            )),
+                        },
                       ),
-                      onPress: () {
-                        Navigator.pushNamed(context, ChatScreen.id);
-                      },
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    ReusableCard_2(
-                      cardChild: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Container(
-                            height: size.height * 0.1,
-                            width: size.width * 0.2,
-                            child: Text('')),
+                      ReusableCard_2(
+                        cardChild: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Container(
+                              height: size.height * 0.1,
+                              width: size.width * 0.2,
+                              // images/comment.png
+                              child: Column(
+                                children: [
+                                  Container(
+                                      height: size.height * 0.06,
+                                      child: Image.asset('images/comment.png')),
+                                  Text('Message'),
+                                ],
+                              )),
+                        ),
+                        onPress: () {
+                          Navigator.pushNamed(context, ChatScreen.id);
+                        },
                       ),
-                      onPress: () {},
-                    ),
-                    ReusableCard_2(
-                      cardChild: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Container(
-                            height: size.height * 0.1,
-                            width: size.width * 0.2,
-                            // images/comment.png
-                            child: Column(
-                              children: [
-                                Container(
-                                    height: size.height * 0.06,
-                                    child: Image.asset('images/feedback.png')),
-                                Text('Feedback'),
-                              ],
-                            )),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      ReusableCard_2(
+                        cardChild: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Container(
+                              height: size.height * 0.1,
+                              width: size.width * 0.2,
+                              child: Text('')),
+                        ),
+                        onPress: () {},
                       ),
-                      onPress: () {
-                        Navigator.pushNamed(context, FeedbackScreen.id);
-                      },
-                    ),
-                    ReusableCard_2(
-                      cardChild: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Container(
-                            height: size.height * 0.1,
-                            width: size.width * 0.2,
-                            // images/comment.png
-                            child: Column(
-                              children: [
-                                Container(
-                                    height: size.height * 0.06,
-                                    child: Image.asset('images/notification.png')),
-                                Text('Notification'),
-                              ],
-                            )),
+                      ReusableCard_2(
+                        cardChild: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Container(
+                              height: size.height * 0.1,
+                              width: size.width * 0.2,
+                              // images/comment.png
+                              child: Column(
+                                children: [
+                                  Container(
+                                      height: size.height * 0.06,
+                                      child: Image.asset('images/feedback.png')),
+                                  Text('Feedback'),
+                                ],
+                              )),
+                        ),
+                        onPress: () {
+                          Navigator.pushNamed(context, FeedbackScreen.id);
+                        },
                       ),
-                      onPress: () {
-                        Navigator.pushNamed(context, NotificationScreen.id);
-                      },
-                    ),
-                  ],
-                ),
-              ],
+                      ReusableCard_2(
+                        cardChild: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Container(
+                              height: size.height * 0.1,
+                              width: size.width * 0.2,
+                              // images/comment.png
+                              child: Column(
+                                children: [
+                                  Container(
+                                      height: size.height * 0.06,
+                                      child: Image.asset('images/notification.png')),
+                                  Text('Notification'),
+                                ],
+                              )),
+                        ),
+                        onPress: () {
+                          Navigator.pushNamed(context, NotificationScreen.id);
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20.0),
+              ),
             ),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20.0),
+            Container(
+              height: size.height * 0.1,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20.0),
+              ),
             ),
-          ),
-          Container(
-            height: size.height * 0.1,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20.0),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

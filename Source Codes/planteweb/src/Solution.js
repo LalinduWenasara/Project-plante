@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { useState, useEffect } from 'react';//react hooks we use
 import { db, auth } from './firebase-config';
-import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc, Timestamp } from "firebase/firestore";
+import { collection, getDocs,doc, deleteDoc, Timestamp } from "firebase/firestore";
 import { useNavigate } from 'react-router-dom';
 import {
   onAuthStateChanged,
@@ -81,7 +81,7 @@ function Solution() {
 var myTime = up.time;
 console.log(uploadinfo);
 console.log("id is " + up.id);
-var foo = myTime.toString();
+var foo = myTime.toDate().toString();
 
 
 return (
@@ -93,7 +93,7 @@ return (
             <div class="card-body">
               <h5 class="card-title">{up.sender}</h5>
               <p class="card-text">{up.message}</p>
-              <p class="card-text"><small class="text-muted">time+{foo}</small></p>
+              <p class="card-text"><small class="text-muted">{foo}</small></p>
             </div>
           </div>
           <button type="button" class="btn btn-outline-info"

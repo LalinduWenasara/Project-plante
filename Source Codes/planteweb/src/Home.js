@@ -1,11 +1,9 @@
 import logo from './logo.svg';
 import { useState, useEffect } from 'react';//react hooks we use
 import './App.css';
-import { Card } from './Card';
-import Login from './Login';
 //import { useState } from 'react';
 import { db, auth } from './firebase-config';
-import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc, Timestamp } from "firebase/firestore";
+import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc, Timestamp,onSnapshot } from "firebase/firestore";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -17,11 +15,7 @@ import { Button,Alert} from 'bootstrap';
 //import style from './stylemod.css'
 import image from './images/loginsvg.svg';
 import Blogs from "./ShowDetails";
-import TreatmentCard from './components/treatment';
-import HomeCard from './components/home';
-
-
-
+import { Bar,Pie, defaults } from 'react-chartjs-2'
 
 
 
@@ -52,6 +46,39 @@ function App2() {
     fontFamily: "Arial"
     
   };
+//
+
+
+var fb1=0,fb2=0,fb3=0,fb4=0,fb5=0,nullnum=0;
+
+
+const BarChart = ({ chartData }) => {
+  return (
+    <div>
+      <Bar
+        data={chartData}
+        options={{
+          plugins: {
+            title: {
+              display: true,
+              text: "Cryptocurrency prices"
+            },
+            legend: {
+              display: true,
+              position: "bottom"
+           }
+          }
+        }}
+      />
+    </div>
+  );
+};
+
+
+
+
+
+
 
   // login related
 
@@ -61,9 +88,6 @@ function App2() {
   const [emailAddress, setemailAddress] = useState("");
   const [authPassword, setauthPassword] = useState("");
   const [hasAccount,setHasAccount]=useState(false);
-  
-
-
   const [user, setUser] = useState({});
 
   onAuthStateChanged(auth, (currentUser) => {
@@ -130,25 +154,34 @@ function App2() {
 
   /* this things need move to web page */
 
-  const [users, setUsers] = useState([]);
+  const [feedbackinfo, setFeedbackInfo] = useState([]);
   const [uploadinfo, setUploadImageInfo] = useState([]);
 
-  const useersCollectionREf = collection(db, "users")
+  const feedbackCollectionREf = collection(db, "feedback")
   const uploadsCollectionREf = collection(db, "uploads")
 
 
-  
+  ///feedback
 
-
+  const [reply2info, setreply2Info] = useState([]);
+//------
   useEffect(() => {
 
-    const getUsers = async () => {
-      const data = await getDocs(useersCollectionREf);
+    const getFeedbacks = async () => {
+      const data = await getDocs(feedbackCollectionREf);
       // console.log(data);
-      setUsers(data.docs.map(((doc) => ({ ...doc.data(), id: doc.id }))))
+      setFeedbackInfo(data.docs.map(((doc) => ({ ...doc.data(), id: doc.id }))))
 
     }
-    getUsers()
+    getFeedbacks()
+//feedback sbaps
+    onSnapshot(collection(db, "feedback"), (snapshot) => {
+      setreply2Info(snapshot.docs.map((doc)=>({...doc.data(), id: doc.id})))
+    })
+    console.log(reply2info);
+
+
+
 
     const getUploadimageInfo = async () => {
       const data = await getDocs(uploadsCollectionREf);
@@ -163,7 +196,7 @@ function App2() {
 
   }, [])
   return (
-  
+   
     <div className="App">
 
 
@@ -174,27 +207,77 @@ function App2() {
 
           
 
-          <div><h1>-------------------------------------------------------------------------------------
-          <Blogs />
+          <div><h1>
+         
           </h1></div>
          
-          {users.map((users) => {
+
+
+<div><h1>
+
+             
+{reply2info.map((fdb) => {
+            
+            if (fdb.feedback == 1) {
+              ++fb1;
+            } else if (fdb.feedback == 2) {
+              ++fb2;
+            }
+            else if (fdb.feedback == 3) {
+              ++fb3;
+            }
+            else if (fdb.feedback == 4) {
+              ++fb4;
+            }
+            else if (fdb.feedback == 5) {
+              ++fb5;
+            }
+            else if (fdb.feedback == null) {
+              ++nullnum;
+            }
+             
+
             return (<div>
-              {""}<h1>
-                Name:{users.name}</h1>
-              <h1>
-                Age:{users.age}
-              </h1>
-              <h1>
-                Age:{users.id}
-              </h1>
+              {""}
               
-                
+
+
+
+
+
+
+
+             
             </div>)
           })}
 
 
-          <div><h1>-------------------------------------------------------------------------------
+     
+
+
+
+          </h1>
+         
+          <h1>
+          {fb1}
+          </h1>
+          <h1>
+          {fb2}
+          </h1>
+          <h1>
+          {fb3}
+          </h1>
+          <h1>
+          {fb4}
+          </h1>
+          <h1>
+          {fb5}
+          </h1>
+          
+          
+          
+          </div>
+          <div><h1>------------
           </h1>
           <h4>Welcome {user?.email} </h4>
           

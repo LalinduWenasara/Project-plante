@@ -242,7 +242,7 @@ class _Home5State extends State<Home5> {
                   ),
                   Row(
                     children: [
-                      ReusableCard_2(
+                      /*ReusableCard_2(
                         cardChild: Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Container(
@@ -251,7 +251,7 @@ class _Home5State extends State<Home5> {
                               child: Text('')),
                         ),
                         onPress: () {},
-                      ),
+                      ),*/
                       ReusableCard_2(
                         cardChild: Padding(
                           padding: const EdgeInsets.all(10.0),

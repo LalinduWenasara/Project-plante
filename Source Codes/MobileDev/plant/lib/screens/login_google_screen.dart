@@ -29,7 +29,11 @@ class _LoginWithGoogleState extends State<LoginWithGoogle> {
             height: size.height * 0.8,
             decoration: BoxDecoration(
              // color: kBlack,
-              borderRadius: BorderRadius.circular(20.0)
+            //  borderRadius: BorderRadius.circular(20.0)
+                borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(36),
+        bottomRight: Radius.circular(36),
+      )
               ,
               image: DecorationImage(
                   image: AssetImage("images/wallpaper1.jpg"),

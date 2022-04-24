@@ -3,44 +3,19 @@ import './App.css';
 import { useState, useEffect } from 'react';//react hooks we use
 import { db, auth } from './firebase-config';
 import { collection, getDocs, addDoc,  doc, deleteDoc, serverTimestamp,onSnapshot } from "firebase/firestore";
-import { useNavigate, useParams } from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import {
-
   onAuthStateChanged,
-
 } from "firebase/auth";
-import {
-  GoogleMap,
-  useLoadScript,
-  Marker,
-  InfoWindow,
-} from "@react-google-maps/api";
-
-
-
-
-const libraries = ["places"];
-const mapContainerStyle = {
-  width: '400px',
-  height: '400px'
-};
-const center = {
-  lat: 43.6532,
-  lng: -79.3832,
-};
 
 
 
 
 
 
-
-function Item() {
-
-  let { itemid } = useParams();
+function Profile() {
 
 
-  
   //Check logged in or not-------------------------------------------------------------------
   const [userlogged, setUser] = useState({});
   console.log(userlogged);
@@ -60,14 +35,11 @@ function Item() {
 
   const [newMessage, setMessage] = useState([]);
   const [newReciver, setReciver] = useState([]);
-  const [newiconimg, seticonimg] = useState([]);
-  
   //create user function
   const useersCollectionREf = collection(db, "replies");
- 
 
   const createUser = async () => {
-    await addDoc(useersCollectionREf, { message: newMessage, time: serverTimestamp(), sender:userlogged.email, reciver: newReciver, itemid:itemid, imagecon:newiconimg,});
+    await addDoc(useersCollectionREf, { message: newMessage, time: serverTimestamp(), sender:userlogged.email, reciver: newReciver });
 
   }
 
@@ -78,7 +50,7 @@ function Item() {
 
 
 
-
+  let { itemid } = useParams();
   const [uploadinfo, setUploadImageInfo] = useState([]);
   const uploadsCollectionREf = collection(db, "uploads");
   const deleteUploads = async (id) => {
@@ -145,14 +117,16 @@ function Item() {
   }, []);
 
 
-//google map related-----
-const { isLoaded, loadError } = useLoadScript({
-  googleMapsApiKey: "AIzaSyBheNEtrngM3cbowGS3tLPwoBXlswmmSb0",
-  libraries,
-});
-if (loadError) return "Error";
-if (!isLoaded) return "Loading...";
-//--------
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -166,7 +140,7 @@ if (!isLoaded) return "Loading...";
 
       {uploadinfo.map((up) => {
         var myTime = up.time;
-        var foo = myTime.toDate().toString();
+        var foo = myTime.toString();
 
         if (up.id == itemid) {
           return (<div>
@@ -181,7 +155,7 @@ if (!isLoaded) return "Loading...";
                     <p class="card-text">{up.message}</p>
                     <p class="card-text">{up.long}</p>
                     <p class="card-text">{up.lat}</p>
-                    <p class="card-text"><small class="text-muted">{foo}</small></p>
+                    <p class="card-text"><small class="text-muted">time+{foo}</small></p>
                   </div>
                 </div>
 
@@ -202,16 +176,8 @@ if (!isLoaded) return "Loading...";
                   
                 </h1>
 
-                <GoogleMap
-     mapContainerStyle={mapContainerStyle}
-     zoom={8}
-     center={{
-      lat: up.lat,
-      lng: up.long}
-    }>
-       <Marker position={{ lat:  up.lat, lng:  up.long }} />
-     </GoogleMap>
-    
+              
+
 
 {reply2info.map((replyy) => {
             return (<div>
@@ -231,8 +197,7 @@ if (!isLoaded) return "Loading...";
                   Reply
                 </h1>
 
-                <input placeholder="Message" onChange={(event) => { setMessage(event.target.value); setReciver(up.sender);seticonimg(up.downloadURL);
-                 }} />
+                <input placeholder="Message" onChange={(event) => { setMessage(event.target.value); setReciver(up.sender); }} />
                 <button onClick={createUser}>Create Reply</button>
               </div>
             </div>
@@ -279,4 +244,4 @@ if (!isLoaded) return "Loading...";
 
 }
 
-export default Item;
+export default Profile;

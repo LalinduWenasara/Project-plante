@@ -15,7 +15,62 @@ import { Button,Alert} from 'bootstrap';
 //import style from './stylemod.css'
 import image from './images/loginsvg.svg';
 import Blogs from "./ShowDetails";
-import { Bar,Pie, defaults } from 'react-chartjs-2'
+import React from "react";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+} from "chart.js";
+import { Bar } from "react-chartjs-2";
+
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
+export const options = {
+  responsive: true,
+  plugins: {
+    title: {
+      display: true,
+      text: "Feed Back"
+    }
+  }
+};
+
+const labels = ["very_dissatisfied", "dissatisfied", "neutral", "satisfied", "very_satisfied"];
+/*
+export const data = {
+  labels,
+  datasets: [
+    {
+      label: "Dataset 1",
+      data: ([4, 9, 16, 25,5]),
+      backgroundColor: "rgba(255, 99, 132, 0.5)"
+    },
+  ]
+};
+*/
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -46,35 +101,16 @@ function App2() {
     fontFamily: "Arial"
     
   };
+
+  const homestyle= {
+    backgroundColor: `#f8fcf9`,
+    
+    
+  };
 //
 
 
 var fb1=0,fb2=0,fb3=0,fb4=0,fb5=0,nullnum=0;
-
-
-const BarChart = ({ chartData }) => {
-  return (
-    <div>
-      <Bar
-        data={chartData}
-        options={{
-          plugins: {
-            title: {
-              display: true,
-              text: "Cryptocurrency prices"
-            },
-            legend: {
-              display: true,
-              position: "bottom"
-           }
-          }
-        }}
-      />
-    </div>
-  );
-};
-
-
 
 
 
@@ -152,6 +188,16 @@ const BarChart = ({ chartData }) => {
   };
 
 
+
+ 
+
+
+
+
+
+
+
+
   /* this things need move to web page */
 
   const [feedbackinfo, setFeedbackInfo] = useState([]);
@@ -180,6 +226,9 @@ const BarChart = ({ chartData }) => {
     })
     console.log(reply2info);
 
+    
+    
+
 
 
 
@@ -201,7 +250,7 @@ const BarChart = ({ chartData }) => {
 
 
       {user ? (
-        <section>
+        <section style={homestyle}>
           
          
 
@@ -236,54 +285,52 @@ const BarChart = ({ chartData }) => {
               ++nullnum;
             }
              
+          }
+          
+          
+          
+          
+          
+          
+          )
+          
+        
+          
+          
+          }
 
-            return (<div>
-              {""}
-              
-
-
-
-
-
-
-
-             
-            </div>)
-          })}
-
-
+            
      
 
 
 
           </h1>
-         
-          <h1>
-          {fb1}
-          </h1>
-          <h1>
-          {fb2}
-          </h1>
-          <h1>
-          {fb3}
-          </h1>
-          <h1>
-          {fb4}
-          </h1>
-          <h1>
-          {fb5}
-          </h1>
-          
-          
-          
-          </div>
-          <div><h1>------------
-          </h1>
+          <div>
           <h4>Welcome {user?.email} </h4>
           
           </div>
 
+          <div class="container-sm">
+          <Bar options={options} data={{
+  labels,
+  datasets: [
+    {
+      label: "Feedback",
+      data: ([fb1, fb2, fb3, fb4,fb5]),
+      backgroundColor: "rgba(92, 284, 116, 0.5)",
+      hoverBackgroundColor: "green",
 
+    },
+  ]
+
+}} />
+</div>
+
+          
+          </div>
+         
+
+         
          
         </section>
 

@@ -102,6 +102,7 @@ class _Home5State extends State<Home5> {
               decoration: BoxDecoration(
                 //color: Colors.teal,
                 borderRadius: BorderRadius.circular(20.0),
+
               ),
             ),
             Container(
@@ -242,16 +243,16 @@ class _Home5State extends State<Home5> {
                   ),
                   Row(
                     children: [
-                      /*ReusableCard_2(
+                      ReusableCard_2(
                         cardChild: Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Container(
                               height: size.height * 0.1,
-                              width: size.width * 0.2,
+                              width: size.width * 0.1,
                               child: Text('')),
                         ),
                         onPress: () {},
-                      ),*/
+                      ),
                       ReusableCard_2(
                         cardChild: Padding(
                           padding: const EdgeInsets.all(10.0),

@@ -161,7 +161,7 @@ if (!isLoaded) return "Loading...";
 
   return (
 
-    <div className="App">
+    <div className="App" style={    {backgroundColor: `#f8fcf9`,}}>
       <h1>Item Page</h1>
 
       {uploadinfo.map((up) => {
@@ -175,7 +175,9 @@ if (!isLoaded) return "Loading...";
               <div class="col-sm-4">
                 {""}
                 <div class="card" >
+                <div class="container-fluid" >
                   <img src={up.downloadURL} alt="..."></img>
+                  </div>
                   <div class="card-body">
                     <h5 class="card-title">{up.sender}</h5>
                     <p class="card-text">{up.message}</p>
@@ -195,12 +197,7 @@ if (!isLoaded) return "Loading...";
                 </button>
               </div>
               <div class="col-sm-4">
-                <h1>
-                  comments
-
-
-                  
-                </h1>
+                
 
                 <GoogleMap
      mapContainerStyle={mapContainerStyle}
@@ -211,9 +208,21 @@ if (!isLoaded) return "Loading...";
     }>
        <Marker position={{ lat:  up.lat, lng:  up.long }} />
      </GoogleMap>
-    
 
-{reply2info.map((replyy) => {
+
+
+              </div>
+
+              <div class="col-sm-4">
+                    
+     <h1>
+                  comments
+
+
+                  
+                </h1>
+                
+                {reply2info.map((replyy) => {
             return (<div>
               {""}
               <h5>
@@ -223,11 +232,7 @@ if (!isLoaded) return "Loading...";
             
             </div>)
           })}
-
-              </div>
-
-              <div class="col-sm-4">
-                <h1>
+          <h1>
                   Reply
                 </h1>
 

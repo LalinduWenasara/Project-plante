@@ -98,8 +98,8 @@ nav{
   justify-content: space-around;
   align-items: center;
   min-height: 10vh;
-  background: rgb(4, 63, 14);
-  color: white;
+  background: #fff;
+  color: #5cb874;
 }
 
 .navLinks{
@@ -108,4 +108,11 @@ nav{
   justify-content: space-around;
   align-items: center;
   list-style: none;
+  display: flex;
+    align-items: center;
+    padding: 10px 0 10px 30px;
+    font-size: 15px;
+    color: #222222;
+    white-space: nowrap;
+    transition: 0.3s;
 }

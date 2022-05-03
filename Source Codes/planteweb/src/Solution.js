@@ -21,6 +21,18 @@ function Solution() {
   const stylecard = {
     
     width:"20%",
+
+  
+  };
+
+  const stylecardimg = {
+    
+    
+    height: "400px",
+    objectFit: "cover",
+    borderRadious:"10px",
+ 
+
   
   };
 
@@ -68,7 +80,7 @@ function Solution() {
 
     
     <div className="App">
-    
+    <div class="clearfix" style={    {backgroundColor: `#f8fcf9`,}}>
       <h1>Solution Page</h1>
 
       
@@ -89,7 +101,7 @@ return (
 <div class="card" style={stylecard}>
           {""}
           <div class="card" >
-            <img src={up.downloadURL} alt="..."></img>
+            <img style={stylecardimg} src={up.downloadURL} alt="..."></img>
             <div class="card-body">
               <h5 class="card-title">{up.sender}</h5>
               <p class="card-text">{up.message}</p>
@@ -136,7 +148,7 @@ return (
 
 
 
-
+</div>
 
 
 

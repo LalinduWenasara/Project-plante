@@ -12,6 +12,7 @@ import {
 } from "firebase/auth";
 import Item from './Item';
 import ErrorPage from './ErrorPage';
+import SignupPage from './SignUpPage';
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
       <Nav/>):(<h1></h1>)}
       <Routes>
         <Route path="/" exact element={<App2 />} />
+        <Route path="/signuppage" element={<SignupPage />} />
         <Route path="/about" element={<About />} />
         <Route path="/solution" element={<Solution />} />
         <Route path="/item/:itemid" element={<Item />} />

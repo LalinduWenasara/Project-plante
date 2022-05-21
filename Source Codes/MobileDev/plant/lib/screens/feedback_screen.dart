@@ -6,6 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import '../constants.dart';
+import 'home_screen.dart';
+import 'home_screen2.dart';
 
 
 class FeedbackScreen extends StatefulWidget {
@@ -115,9 +117,10 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                 'sender': userEmail,
                 'feedback':feedback,
               });
+              Navigator.pushNamed(context, Home5.id);
             },
             child: Text(
-              '->',
+              'send',
             ),
           ),
         ],

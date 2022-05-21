@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { useState, useEffect } from 'react';//react hooks we use
 import { db, auth } from './firebase-config';
-import { collection, getDocs, addDoc,  doc, deleteDoc, serverTimestamp,onSnapshot } from "firebase/firestore";
+import { collection, getDocs, addDoc,  doc, deleteDoc, serverTimestamp,onSnapshot ,query, orderBy } from "firebase/firestore";
 import { useNavigate, useParams } from 'react-router-dom';
 import {
 
@@ -15,14 +15,15 @@ import {
   Marker,
   InfoWindow,
 } from "@react-google-maps/api";
+import Swal from 'sweetalert2';
 
 
 
 
 const libraries = ["places"];
 const mapContainerStyle = {
-  width: '400px',
-  height: '400px'
+  width: '500px',
+  height: '500px'
 };
 const center = {
   lat: 43.6532,
@@ -38,6 +39,7 @@ const center = {
 function Item() {
 
   let { itemid } = useParams();
+  let navigate = useNavigate();
 
 
   
@@ -135,12 +137,13 @@ function Item() {
     getreplies();
 
 
-
-
-    onSnapshot(collection(db, "replies"), (snapshot) => {
+    onSnapshot(collection(db, "replies"), orderBy("time"), (snapshot) => {
       setreply2Info(snapshot.docs.map((doc)=>({...doc.data(), id: doc.id})))
     })
     console.log(reply2info);
+
+  
+
 
   }, []);
 
@@ -189,8 +192,34 @@ if (!isLoaded) return "Loading...";
 
                 <button type="button" class="btn btn-outline-danger"
                   onClick={() => {
-                    deleteUploads(up.id);
-                  }}
+                  //  deleteUploads(up.id);
+
+
+                  Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#28a745',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                      );
+                      navigate(`/Solution`);
+                    }
+                  })
+
+                  }
+                  
+                
+                
+                
+                }
                 >
                   {" "}
                   Delete Post
@@ -201,7 +230,7 @@ if (!isLoaded) return "Loading...";
 
                 <GoogleMap
      mapContainerStyle={mapContainerStyle}
-     zoom={8}
+     zoom={15}
      center={{
       lat: up.lat,
       lng: up.long}
@@ -236,9 +265,50 @@ if (!isLoaded) return "Loading...";
                   Reply
                 </h1>
 
-                <input placeholder="Message" onChange={(event) => { setMessage(event.target.value); setReciver(up.sender);seticonimg(up.downloadURL);
+                <input placeholder="Message" onChange={(event) => { 
+                  
+                  
+                  setMessage(event.target.value); setReciver(up.sender);seticonimg(up.downloadURL);
+                  
                  }} />
-                <button onClick={createUser}>Create Reply</button>
+
+
+
+                <button class="btn btn-outline-danger" 
+                /*onClick={createUser
+                
+                
+                }*/
+                onClick={() => {
+                  //  deleteUploads(up.id);
+                  createUser();
+
+                  Swal.fire(
+                    'Good job!',
+                    'You clicked the button!',
+                    'success'
+                  );
+
+                  }
+                  
+                
+                
+                
+                }
+                
+                
+                
+                
+                >
+                  
+                  
+                  
+                  
+                  Create Reply</button>
+
+
+
+                  
               </div>
             </div>
 

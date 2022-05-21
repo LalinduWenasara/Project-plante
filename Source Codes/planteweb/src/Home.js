@@ -3,14 +3,14 @@ import { useState, useEffect } from 'react';//react hooks we use
 import './App.css';
 //import { useState } from 'react';
 import { db, auth } from './firebase-config';
-import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc, Timestamp,onSnapshot } from "firebase/firestore";
+import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc, Timestamp, onSnapshot } from "firebase/firestore";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
 } from "firebase/auth";
-import { Button,Alert} from 'bootstrap';
+import { Button, Alert } from 'bootstrap';
 //import 'bootstrap/dist/css/bootstrap.min.css'
 //import style from './stylemod.css'
 import image from './images/loginsvg.svg';
@@ -26,6 +26,7 @@ import {
   Legend
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import { useNavigate } from 'react-router-dom';
 
 
 ChartJS.register(
@@ -79,40 +80,53 @@ function App2() {
   const navstyleq = {
     color: "DodgerBlue",
     fontFamily: "Arial"
-  
+
   };
   const mystylecontainer = {
-    margin:"5%",
+    margin: "5%",
     fontFamily: "Arial"
-     
-    
+
+
   };
-  
+
   const mystylebackground = {
-   
+
     padding: "10px",
     fontFamily: "Arial"
-    
-    
+
+
   };
 
   const mystyle = {
     backgroundColor: "DodgerBlue",
     fontFamily: "Arial"
-    
+
   };
 
-  const homestyle= {
+  const homestyle = {
     backgroundColor: `#f8fcf9`,
-    
-    
   };
-//
 
 
-var fb1=0,fb2=0,fb3=0,fb4=0,fb5=0,nullnum=0;
+  const welcomestyle = {
+
+    height:"500px",
+    fontFamily: "Arial"
+
+  };
 
 
+
+
+
+
+
+  //
+
+
+  var fb1 = 0, fb2 = 0, fb3 = 0, fb4 = 0, fb5 = 0, nullnum = 0;
+
+  let navigate = useNavigate();
 
 
 
@@ -120,10 +134,9 @@ var fb1=0,fb2=0,fb3=0,fb4=0,fb5=0,nullnum=0;
 
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-
   const [emailAddress, setemailAddress] = useState("");
   const [authPassword, setauthPassword] = useState("");
-  const [hasAccount,setHasAccount]=useState(false);
+  const [hasAccount, setHasAccount] = useState(false);
   const [user, setUser] = useState({});
 
   onAuthStateChanged(auth, (currentUser) => {
@@ -189,7 +202,7 @@ var fb1=0,fb2=0,fb3=0,fb4=0,fb5=0,nullnum=0;
 
 
 
- 
+
 
 
 
@@ -206,11 +219,12 @@ var fb1=0,fb2=0,fb3=0,fb4=0,fb5=0,nullnum=0;
   const feedbackCollectionREf = collection(db, "feedback")
   const uploadsCollectionREf = collection(db, "uploads")
 
-
+  const [plantPathologistinfo, plantPathologistInfo] = useState([]);
+  const plantPathologistCollectionREf = collection(db, "PlantPathologist");
   ///feedback
 
   const [reply2info, setreply2Info] = useState([]);
-//------
+  //------
   useEffect(() => {
 
     const getFeedbacks = async () => {
@@ -220,15 +234,11 @@ var fb1=0,fb2=0,fb3=0,fb4=0,fb5=0,nullnum=0;
 
     }
     getFeedbacks()
-//feedback sbaps
+    //feedback sbaps
     onSnapshot(collection(db, "feedback"), (snapshot) => {
-      setreply2Info(snapshot.docs.map((doc)=>({...doc.data(), id: doc.id})))
+      setreply2Info(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
     })
     console.log(reply2info);
-
-    
-    
-
 
 
 
@@ -240,172 +250,183 @@ var fb1=0,fb2=0,fb3=0,fb4=0,fb5=0,nullnum=0;
     }
     getUploadimageInfo()
 
+   
 
+    onSnapshot(collection(db, "PlantPathologist"), (snapshot) => {
+      plantPathologistInfo(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+    })
+    console.log(plantPathologistinfo);
 
 
   }, [])
   return (
-   
+
     <div className="App">
 
 
       {user ? (
         <section style={homestyle}>
-          
-         
-
-          
 
           <div><h1>
-         
+
           </h1></div>
-         
 
 
-<div><h1>
 
-             
-{reply2info.map((fdb) => {
-            
-            if (fdb.feedback == 1) {
-              ++fb1;
-            } else if (fdb.feedback == 2) {
-              ++fb2;
+          <div><h1>
+
+
+            {reply2info.map((fdb) => {
+
+              if (fdb.feedback == 1) {
+                ++fb1;
+              } else if (fdb.feedback == 2) {
+                ++fb2;
+              }
+              else if (fdb.feedback == 3) {
+                ++fb3;
+              }
+              else if (fdb.feedback == 4) {
+                ++fb4;
+              }
+              else if (fdb.feedback == 5) {
+                ++fb5;
+              }
+              else if (fdb.feedback == null) {
+                ++nullnum;
+              }
+
             }
-            else if (fdb.feedback == 3) {
-              ++fb3;
-            }
-            else if (fdb.feedback == 4) {
-              ++fb4;
-            }
-            else if (fdb.feedback == 5) {
-              ++fb5;
-            }
-            else if (fdb.feedback == null) {
-              ++nullnum;
-            }
-             
-          }
-          
-          
-          
-          
-          
-          
-          )
-          
-        
-          
-          
-          }
-
-            
-     
 
 
 
+
+
+
+            )
+
+
+
+
+            }
           </h1>
-          <div>
-          <h4>Welcome {user?.email} </h4>
-          
+          {plantPathologistinfo.map((userinf) => {
+            if(userinf.emailAddress==user?.email)
+            return (<div style={welcomestyle}>
+              {""}
+              <h3>Welcome   &nbsp;&nbsp;
+                {userinf.firstname} &nbsp;{userinf.Lastname} &nbsp;
+                you have xnum detections today
+              </h3>
+              
+            
+            </div>)
+          })}
+            
+            <div class="container-sm">
+              <Bar options={options} data={{
+                labels,
+                datasets: [
+                  {
+                    label: "Feedback",
+                    data: ([fb1, fb2, fb3, fb4, fb5]),
+                    backgroundColor: "rgba(92, 284, 116, 0.5)",
+                    hoverBackgroundColor: "green",
+
+                  },
+                ]
+
+              }} />
+            </div>
+
+
           </div>
 
-          <div class="container-sm">
-          <Bar options={options} data={{
-  labels,
-  datasets: [
-    {
-      label: "Feedback",
-      data: ([fb1, fb2, fb3, fb4,fb5]),
-      backgroundColor: "rgba(92, 284, 116, 0.5)",
-      hoverBackgroundColor: "green",
 
-    },
-  ]
 
-}} />
-</div>
 
-          
-          </div>
-         
-
-         
-         
         </section>
 
 
       ) : (
         <section style={mystylebackground}>
-          
+
           <div class="container" style={mystylecontainer}>
-          <div class="row content">
-          <div class="col-md-6 mb-3">
-         
-          <img src={image} class="img-fluid" alt="Responsive image"></img>
-            </div>
-            <div class="col-md-6">
-          <div >
-          <div class="form-group">
-          <label for="email">Email</label>
-          
-          <input class="form-control"
-            placeholder="email"
-            onChange={(event) => {
-              setemailAddress(event.target.value);
-            }}
-                    
-          />
-            <h1>{emailError}</h1>
-        </div>
+            <div class="row content">
+              <div class="col-md-6 mb-3">
 
-        <div class="form-group">
-          <label for="password">Password</label>
-         
-         < input class="form-control"
-            placeholder="password" type="password"
-            onChange={(event) => {
-              setauthPassword(event.target.value);
-            }}
+                <img src={image} class="img-fluid" alt="Responsive image"></img>
+              </div>
+              <div class="col-md-6">
+                <div >
+                  <div class="form-group">
+                    <label for="email">Email</label>
+
+                    <input class="form-control"
+                      placeholder="email"
+                      onChange={(event) => {
+                        setemailAddress(event.target.value);
+                      }}
+
+                    />
+                    <h1>{emailError}</h1>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="password">Password</label>
+
+                    < input class="form-control"
+                      placeholder="password" type="password"
+                      onChange={(event) => {
+                        setauthPassword(event.target.value);
+                      }}
+
+                    />
+                    <h1>{passwordError}</h1>
+                  </div>
+
+
+
+                  <div className='buttonContainer'>
+                    {hasAccount ? (
+                      <>
+
+                        <button onClick={register} type="button" class="btn btn-outline-success"> sign up</button>
+                        <p>
+                          Don't have an account?
+                          <span onClick={() => setHasAccount(false)}>Sigip</span>
+                        </p>
+                      </>
+                    ) : (
+                      <>
+                        <button onClick={login} type="button" class="btn btn-outline-success">sign in</button>
+                        <p>
+                          have an account?
+                          <span onClick={() => navigate(`/signuppage`)}>Signup</span>
+                        </p>
+                      </>
+                      /* 
+                      ()=>navigate(`/signuppage`)
+                      
+                      onClick={() => {
+                          navigate(`/item/${up.id}`);
             
-          />
-          <h1>{passwordError}</h1>
-        </div>
-
-
-         
-          <div className='buttonContainer'>
-          {hasAccount?(
-          <>
-          <button onClick={register} type="button" class="btn btn-outline-success"> sign up</button>
-          <p>
-            Don't have an account?
-            <span onClick={()=>setHasAccount(false)}>Signup</span>
-          </p>
-          </>
-          ):(
-            <>
-            <button onClick={login} type="button" class="btn btn-outline-success">sign in</button>
-          <p>
-            have an account?
-            <span onClick={()=>setHasAccount(true)}>Signup</span>
-          </p>
-          </>
-          )}
-          </div>
-          </div>
-          </div>
-          </div>
+                        }*/
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
         </section>
       )}
 
- 
-      
+
+
     </div>
 
-    
+
   );
 
 }

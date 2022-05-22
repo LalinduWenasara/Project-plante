@@ -42,6 +42,9 @@ class _Home5State extends State<Home5> {
       setState(() {
         userEmail = user.email;
         userImage = user.photoURL;
+        if(userImage==null){
+          userImage="https://firebasestorage.googleapis.com/v0/b/iot2-950b2.appspot.com/o/mobapp%2F194938.png?alt=media&token=7e6346d3-b58e-411e-85e7-5df9305a3ec2";
+        }
         testU1 = user.displayName;
         testU2 = user.uid;
       });
@@ -315,6 +318,7 @@ class _Home5State extends State<Home5> {
 
   Future<void> signOutGoogle() async {
     await googleSignIn.signOut();
+   // _auth.signOut();
    Navigator.pushNamed(context, LoginWithGoogle.id);
 
   }

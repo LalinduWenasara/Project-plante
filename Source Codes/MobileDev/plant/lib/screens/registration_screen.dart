@@ -8,6 +8,7 @@ import 'package:plant/reusable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:plant/screens/chat_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:plant/screens/login_google_screen.dart';
 import 'login_screen.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -133,14 +134,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   }
                 },
               ),
-              KroundedButton(
-                title: 'google',
-                colour: Colors.red,
-                onPressed: () async {
-                  // signInWithGoogle();
-                  print('under dev');
-                },
-              ),
+
               Container(
                 child: Row(
                   children: [
@@ -150,7 +144,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, LoginScreen.id);
+                        Navigator.pushNamed(context, LoginWithGoogle.id);
                         print('now you are in login');
                       },
                       child: Text(

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:plant/screens/chat_screen.dart';
 import 'package:plant/screens/feedback_screen.dart';
 import 'package:plant/screens/home_screen2.dart';
+import 'package:plant/screens/login_recreate.dart';
 import 'package:plant/screens/login_screen.dart';
 import 'package:plant/screens/notification_screen.dart';
 import 'package:plant/screens/profile_screen.dart';
@@ -33,8 +34,8 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      //initialRoute: WelcomePlante.id,
       initialRoute: WelcomePlante.id,
+      //initialRoute: LoginRecreate.id,
       routes: {
         WelcomeScreen.id: (context) => WelcomeScreen(),
         LoginScreen.id: (context) => LoginScreen(),
@@ -51,6 +52,7 @@ class MyApp extends StatelessWidget {
         FeedbackScreen.id:(context)=>FeedbackScreen(),
         ProfileScreen.id:(context)=>ProfileScreen(),
         SetProfileScreen.id:(context)=>SetProfileScreen(),
+        LoginRecreate.id:(context)=>LoginRecreate(),
       },
     );
   }

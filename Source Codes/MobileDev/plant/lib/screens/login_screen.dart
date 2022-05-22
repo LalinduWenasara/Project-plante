@@ -8,7 +8,6 @@ import 'package:plant/reusable.dart';
 import 'package:plant/screens/chat_screen.dart';
 import 'package:plant/screens/registration_screen.dart';
 import 'package:plant/screens/welcome_screen.dart';
-
 import 'home_screen.dart';
 
 
@@ -120,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 KroundedButton(
                   title: 'Log In',
-                  colour: Color(0x6ADBB9FF),
+                  colour:  kHarlequin,
                   onPressed: () async {
                     print(email);
                     print(password);

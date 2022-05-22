@@ -315,6 +315,7 @@ class _Home5State extends State<Home5> {
 
   Future<void> signOutGoogle() async {
     await googleSignIn.signOut();
-    Navigator.pushNamed(context, LoginWithGoogle.id);
+   Navigator.pushNamed(context, LoginWithGoogle.id);
+
   }
 }

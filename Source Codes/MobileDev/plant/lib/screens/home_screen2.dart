@@ -24,7 +24,8 @@ class Home5 extends StatefulWidget {
 
 class _Home5State extends State<Home5> {
   final _auth = FirebaseAuth.instance;
-  String userEmail, userImage, testU1, testU2, testU3;
+  String userEmail, testU1="Welcome",userImg2, testU2, testU3,displayname2;
+  String  userImage="https://firebasestorage.googleapis.com/v0/b/iot2-950b2.appspot.com/o/mobapp%2F194938.png?alt=media&token=7e6346d3-b58e-411e-85e7-5df9305a3ec2";
   Size size;
 
   @override
@@ -41,13 +42,15 @@ class _Home5State extends State<Home5> {
       print(user.email);
       setState(() {
         userEmail = user.email;
-        userImage = user.photoURL;
-        if(userImage==null){
-          userImage="https://firebasestorage.googleapis.com/v0/b/iot2-950b2.appspot.com/o/mobapp%2F194938.png?alt=media&token=7e6346d3-b58e-411e-85e7-5df9305a3ec2";
-        }
-        testU1 = user.displayName;
+        userImg2= user.photoURL;
+        if(userImg2 != null){
+        userImage=userImg2;}
+        displayname2 = user.displayName;
+        if(displayname2 != null){
+          testU1=displayname2;}
         testU2 = user.uid;
       });
+
     } else {
       print('check2');
     }
@@ -122,10 +125,12 @@ class _Home5State extends State<Home5> {
                             SizedBox(
                               width: size.width * 0.1,
                             ),
+
                             CircleAvatar(
                               backgroundImage: NetworkImage(userImage),
                               radius: size.width * 0.1,
                             ),
+
                             SizedBox(
                               width: size.width * 0.4,
                             ),

@@ -21,12 +21,10 @@ class LoginWithGoogle extends StatefulWidget {
 
 class _LoginWithGoogleState extends State<LoginWithGoogle> {
   String userEmail = '';
-  late String email, password;
+  late String email="", password="";
   bool spinLordShow = false;
-  bool flag_1=false;
-  late String whoLogged;
-
-
+  bool flag_1 = false;
+  late  String whoLogged;
 
   @override
   void initState() {
@@ -35,21 +33,72 @@ class _LoginWithGoogleState extends State<LoginWithGoogle> {
     CheckLoggedInOrNot();
   }
 
-
-
   void CheckLoggedInOrNot() async {
     final user = await _auth.currentUser;
-    if(user != null){
+    if (user != null) {
       setState(() {
-        flag_1=true;
-        whoLogged=user.email!;
+        flag_1 = true;
+        whoLogged = user.email!;
       });
+    } else {
+      flag_1 = false;
     }
-    else{
-      flag_1=false;
-    }
+  }
 
+  Future<void> showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('AlertDialog Title'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text('This is a demo alert dialog.'),
+                Text('Would you like to approve of this message?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Approve'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
+  Future<void> showMyDialog2(String A) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('AlertDialog Title'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text('This is a demo alert dialog.'),
+                Text('Would you like to approve of this message?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Approve'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
 
@@ -58,186 +107,188 @@ class _LoginWithGoogleState extends State<LoginWithGoogle> {
 
 
 
-
-
-
-
-
-
+  Future signInEmail({required String email, required String password}) async {
+    try {
+      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      return null;
+    } on FirebaseAuthException catch (e) {
+      return e.message;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    if(flag_1==false) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: ModalProgressHUD(
-        inAsyncCall: spinLordShow,
-        child: Column(
-          children: [
-            Container(
-              height: size.height * 0.45,
-              decoration: BoxDecoration(
-                // color: kBlack,
-                //  borderRadius: BorderRadius.circular(20.0)
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(36),
-                  bottomRight: Radius.circular(36),
-                )
-                ,
-                image: DecorationImage(
-                    image: AssetImage("images/plant-diseases2.jpg"),
-                    fit: BoxFit.cover),
-              ),
-
-            ),
-
-
-            Container(
-              width: size.width*0.75,
-              child: Column(
-                children: [
-                  TextField(
-                    onChanged: (value) {
-                      email = value;
-                    },
-                    decoration: InputDecoration(
-                        labelText: 'Email',
-                        labelStyle: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black54),
-                        focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.green))),
-                  ),
-                  TextField(
-                    onChanged: (value) {
-                      password = value;
-                    },
-                    decoration: InputDecoration(
-                        labelText: 'Password',
-                        labelStyle: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black54),
-                        focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.green))),
-                    obscureText: true,
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 20.0),
-            Container(
-              height: size.height * 0.05,
-              decoration: BoxDecoration(
-                // color: kBlack,
-                //  borderRadius: BorderRadius.circular(20.0)
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(36),
-                  bottomRight: Radius.circular(36),
-                )
-                ,
-              ),
-
-            ),
-
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    spinLordShow = true;
-                  });
-                  try {
-                    final user = _auth.signInWithEmailAndPassword(
-                        email: email, password: password);
-                    if (user != null) {
-                      Navigator.pushNamed(context, Home5.id);
-                    }
-                    if (user == null) {
-                      Navigator.pushNamed(context, WelcomePlante.id);
-                    }
-                    setState(() {
-                      spinLordShow = false;
-                    });
-                  } catch (e) {
-                    print(e);
-                  }
-                },
-                child:  Padding(
-                  padding: const EdgeInsets.all(1.0),
-                  child: Container(
-                      width: size.width*0.5,
-                      child: Center(child: Text('Login'))),
-                ),
-              ),),
-            Center(
-                child: OutlinedButton.icon(
-                  icon: Icon(
-                    FontAwesomeIcons.google,
-                    color: Colors.red.shade500,
-                  ),
-                  label: Padding(
-                    padding: const EdgeInsets.all(4.0),
-
-                    child: Container(
-                      width: size.width*0.4,
-                      child: Text(
-                        'Continue with Google',
-                        style: TextStyle(color: Colors.black54),
-                      ),
-                    ),
-                  ),
-                  onPressed: () async {
-                    setState(() {
-                      spinLordShow = true;
-                    });
-                    await signInWithGoogle();
-                    setState(() {
-                      spinLordShow = false;
-                    });
-                    Navigator.pushNamed(context, Home5.id);
-                  },
-                  style: OutlinedButton.styleFrom(
-                    primary: kGreenE,
-                    side: BorderSide(color: Colors.black54, width: 1),
-                  ),
-                )),
-            Container(
-              child: Row(
-                children: [
-                  SizedBox(width:size.width*0.25),
-                  Text(
-                    "New to Plante ? ",
-                    style: TextStyle(color:Colors.black54),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, RegistrationScreen.id);
-                      print(' now you are in sign up');
-                    },
-                    child: Text(
-                      "Register",
-                      style: TextStyle(
-                        color: Colors.black54,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );}
-    else{
-      return
-      Scaffold(
+    if (flag_1 == false) {
+      return Scaffold(
         backgroundColor: Colors.white,
         body: ModalProgressHUD(
           inAsyncCall: spinLordShow,
-          child:
+          child: Column(
+            children: [
+              Container(
+                height: size.height * 0.45,
+                decoration: BoxDecoration(
+                  // color: kBlack,
+                  //  borderRadius: BorderRadius.circular(20.0)
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(36),
+                    bottomRight: Radius.circular(36),
+                  ),
+                  image: DecorationImage(
+                      image: AssetImage("images/plant-diseases2.jpg"),
+                      fit: BoxFit.cover),
+                ),
+              ),
+              Container(
+                width: size.width * 0.75,
+                child: Column(
+                  children: [
+                    TextField(
+                      onChanged: (value) {
+                        email = value;
+                      },
+                      decoration: InputDecoration(
+                          labelText: 'Email',
+                          labelStyle: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black54),
+                          focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.green))),
+                    ),
+                    TextField(
+                      onChanged: (value) {
+                        password = value;
+                      },
+                      decoration: InputDecoration(
+                          labelText: 'Password',
+                          labelStyle: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black54),
+                          focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.green))),
+                      obscureText: true,
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 20.0),
+              Container(
+                height: size.height * 0.05,
+                decoration: BoxDecoration(
+                  // color: kBlack,
+                  //  borderRadius: BorderRadius.circular(20.0)
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(36),
+                    bottomRight: Radius.circular(36),
+                  ),
+                ),
+              ),
+              Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (email != null && email != null) {
+                      print(email);
+                      print(password);
+                      setState(() {
+                        spinLordShow = true;
+                      });
+                      signInEmail(email: email, password: password)
+                          .then((result) {
+                        if (result == null) {
+                          setState(() {
+                            spinLordShow = false;
+                          });
+                          Navigator.pushNamed(context, Home5.id);
 
-          Padding(
+                        } else {
+                          setState(() {
+                            spinLordShow = false;
+                          });
+                          showMyDialog();
+
+                        }
+                      });
+                    } else {
+                      setState(() {
+                        spinLordShow = false;
+                      });
+                      showMyDialog();
+                    }
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(1.0),
+                    child: Container(
+                        width: size.width * 0.5,
+                        child: Center(child: Text('Login'))),
+                  ),
+                ),
+              ),
+              Center(
+                  child: OutlinedButton.icon(
+                icon: Icon(
+                  FontAwesomeIcons.google,
+                  color: Colors.red.shade500,
+                ),
+                label: Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Container(
+                    width: size.width * 0.4,
+                    child: Text(
+                      'Continue with Google',
+                      style: TextStyle(color: Colors.black54),
+                    ),
+                  ),
+                ),
+                onPressed: () async {
+                  setState(() {
+                    spinLordShow = true;
+                  });
+                  await signInWithGoogle();
+                  setState(() {
+                    spinLordShow = false;
+                  });
+                  Navigator.pushNamed(context, Home5.id);
+                },
+                style: OutlinedButton.styleFrom(
+                  primary: kGreenE,
+                  side: BorderSide(color: Colors.black54, width: 1),
+                ),
+              )),
+              Container(
+                child: Row(
+                  children: [
+                    SizedBox(width: size.width * 0.25),
+                    Text(
+                      "New to Plante ? ",
+                      style: TextStyle(color: Colors.black54),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, RegistrationScreen.id);
+                        print(' now you are in sign up');
+                      },
+                      child: Text(
+                        "Register",
+                        style: TextStyle(
+                          color: Colors.black54,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    } else {
+      return Scaffold(
+        backgroundColor: Colors.white,
+        body: ModalProgressHUD(
+          inAsyncCall: spinLordShow,
+          child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 24.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -260,8 +311,8 @@ class _LoginWithGoogleState extends State<LoginWithGoogle> {
                   onPressed: () {
                     Navigator.pushNamed(context, Home5.id);
                   },
-                  child:  Container(
-                      width: size.width*0.5,
+                  child: Container(
+                      width: size.width * 0.5,
                       child: Center(child: Text('continue'))),
                 ),
                 ElevatedButton(
@@ -269,11 +320,10 @@ class _LoginWithGoogleState extends State<LoginWithGoogle> {
                     _auth.signOut();
                     Navigator.pushNamed(context, WelcomePlante.id);
                   },
-                  child:  Container(
-                      width: size.width*0.5,
+                  child: Container(
+                      width: size.width * 0.5,
                       child: Center(child: Text('log out'))),
                 ),
-
               ],
             ),
           ),
@@ -304,6 +354,5 @@ class _LoginWithGoogleState extends State<LoginWithGoogle> {
 
   Future<void> signOutGoogle() async {
     await googleSignIn.signOut();
-
   }
 }

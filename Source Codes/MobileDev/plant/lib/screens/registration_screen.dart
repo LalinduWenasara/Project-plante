@@ -19,14 +19,14 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
-   String email, password;
+  String email, password;
   final _auth = FirebaseAuth.instance;
-   bool spinLordShow=false;
+  bool spinLordShow = false;
 
   String email1, password1;
   var re;
 
-  Future signUp({String email1,String password1}) async {
+  Future signUp({String email1, String password1}) async {
     try {
       await _auth.createUserWithEmailAndPassword(
         email: email1,
@@ -40,12 +40,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
-      body:  ModalProgressHUD(
+      body: ModalProgressHUD(
         inAsyncCall: spinLordShow,
-          child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.0),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: size.width * 0.12),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -53,7 +54,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               Hero(
                 tag: 'plant_logo',
                 child: Container(
-                  height: 200.0,
+                  height: 160.0,
                   child: SvgPicture.asset('images/flower.svg'),
                 ),
               ),
@@ -61,54 +62,55 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 height: 48.0,
               ),
               TextField(
-                  keyboardType: TextInputType.emailAddress,
-                  textAlign: TextAlign.center,
-                  onChanged: (value) {
-                    //Do something with the user input.
-
-                    email = value;
-                    // print(email);
-                  },
-                  decoration:
-                      kInputsTextDecoration.copyWith(hintText: 'Enter Email')),
+                keyboardType: TextInputType.emailAddress,
+                onChanged: (value) {
+                  email = value;
+                },
+                decoration: InputDecoration(
+                    labelText: 'Email',
+                    labelStyle: TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.black54),
+                    focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.green))),
+              ),
               SizedBox(
                 height: 8.0,
               ),
               TextField(
-                  textAlign: TextAlign.center,
-                  obscureText: true,
-                  onChanged: (value) {
-                    //Do something with the user input.
-                    password = value;
-                    // print(password);
-                  },
-                  decoration:
-                      kInputsTextDecoration.copyWith(hintText: 'Enter Password')),
+                onChanged: (value) {
+                  password = value;
+                },
+                decoration: InputDecoration(
+                    labelText: 'Enter Password',
+                    labelStyle: TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.black54),
+                    focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.green))),
+                obscureText: true,
+              ),
+              TextField(
+                onChanged: (value) {
+                  password = value;
+                },
+                decoration: InputDecoration(
+                    labelText: 'Confirm Password',
+                    labelStyle: TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.black54),
+                    focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.green))),
+                obscureText: true,
+              ),
               SizedBox(
                 height: 8.0,
               ),
-              TextField(
-                  textAlign: TextAlign.center,
-                  obscureText: true,
-                  onChanged: (value) {
-                    //Do something with the user input.
-                    password = value;
-                    // print(password);
-                  },
-                  decoration: kInputsTextDecoration.copyWith(
-                      hintText: 'Confirm Password')),
-              SizedBox(
-                height: 24.0,
-              ),
-              KroundedButton(
-                title: 'Register',
-                colour: Color(0xFF0C9869),
-                onPressed: () async {
-                  setState(() {
-                    spinLordShow=true;
-                  });
-                  print(email);
-                  print(password);
+              Center(
+                child: ElevatedButton(
+                  onPressed: () async {
+                    setState(() {
+                      spinLordShow = true;
+                    });
+                    print(email);
+                    print(password);
 /*
                   signUp(email1: email, password1: password).then((result) {
                     if (result == null) {
@@ -118,29 +120,39 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     }
                   });*/
 
-                  try {
-                    final user = await _auth.createUserWithEmailAndPassword(email: email, password: password);
-                    Navigator.pushNamed(context, ChatScreen.id);
-                    if(user != null){
+                    try {
+                      final user = await _auth.createUserWithEmailAndPassword(
+                          email: email, password: password);
                       Navigator.pushNamed(context, ChatScreen.id);
-
+                      if (user != null) {
+                        Navigator.pushNamed(context, ChatScreen.id);
+                      }
+                      setState(() {
+                        spinLordShow = false;
+                      });
+                    } catch (e) {
+                      print(e);
                     }
-                    setState(() {
-                      spinLordShow=false;
-                    });
-
-                  } catch (e) {
-                    print(e);
-                  }
-                },
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(1.0),
+                    child: Container(
+                        width: size.width * 0.5,
+                        child: Center(child: Text('Register'))),
+                  ),
+                ),
               ),
-
+              SizedBox(
+                height: 8.0,
+              ),
               Container(
                 child: Row(
                   children: [
                     Text(
                       "Already have an Account ? ",
-                      style: TextStyle(color: Colors.green),
+                      style: TextStyle(
+                        color: Colors.black54,
+                      ),
                     ),
                     GestureDetector(
                       onTap: () {
@@ -150,7 +162,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       child: Text(
                         "Sign In",
                         style: TextStyle(
-                          color: Colors.red,
+                          color: Colors.black54,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -165,7 +177,3 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     );
   }
 }
-
-
-
-

@@ -68,13 +68,26 @@ function Item() {
   const useersCollectionREf = collection(db, "replies");
  
 
-  const createUser = async () => {
+  const createReply = async () => {
+    if(newMessage!=""){
     await addDoc(useersCollectionREf, { message: newMessage, time: serverTimestamp(), sender:userlogged.email, reciver: newReciver, itemid:itemid, imagecon:newiconimg,});
+    Swal.fire(
+      'Good job!',
+      'You commented successfully!',
+      'success'
+    );
 
   }
+  else{
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Enter your comment!',
+    })
 
 
-
+  }
+  }
 
 
 
@@ -104,11 +117,6 @@ function Item() {
   const [reply2info, setreply2Info] = useState([]);
 
  // const [messages] = useCollectionData(query, { idField: 'id' });
-
-
-
-
-
 
 
 
@@ -281,13 +289,7 @@ if (!isLoaded) return "Loading...";
                 }*/
                 onClick={() => {
                   //  deleteUploads(up.id);
-                  createUser();
-
-                  Swal.fire(
-                    'Good job!',
-                    'You clicked the button!',
-                    'success'
-                  );
+                  createReply();
 
                   }
                   

@@ -123,6 +123,7 @@ class _LoginWithGoogleState extends State<LoginWithGoogle> {
       return Scaffold(
         backgroundColor: Colors.white,
         body: ModalProgressHUD(
+            color:Colors.green.shade100,
           inAsyncCall: spinLordShow,
           child: Column(
             children: [
@@ -186,6 +187,7 @@ class _LoginWithGoogleState extends State<LoginWithGoogle> {
               ),
               Center(
                 child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(primary: Colors.lightGreen[700]),
                   onPressed: () {
                     if (email != null && email != null) {
                       print(email);
@@ -308,6 +310,7 @@ class _LoginWithGoogleState extends State<LoginWithGoogle> {
                   ),
                 ),
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(primary: Colors.lightGreen[700]),
                   onPressed: () {
                     Navigator.pushNamed(context, Home5.id);
                   },
@@ -316,6 +319,7 @@ class _LoginWithGoogleState extends State<LoginWithGoogle> {
                       child: Center(child: Text('continue'))),
                 ),
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(primary: Colors.lightGreen[700]),
                   onPressed: () {
                     _auth.signOut();
                     Navigator.pushNamed(context, WelcomePlante.id);

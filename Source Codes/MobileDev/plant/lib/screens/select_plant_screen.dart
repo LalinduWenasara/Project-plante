@@ -28,15 +28,50 @@ class _SelectPlantState extends State<SelectPlant> {
               borderRadius: BorderRadius.circular(20),
             ),
           ),
-          ReusableCard_2(colour: kHarlequin,onPress: (){Navigator.pushNamed(context,MySplashScreen.id);},cardChild: Padding(
+          ReusableCard_2(colour: Colors.lightGreen[700],onPress: (){Navigator.pushNamed(context,MySplashScreen.id);},cardChild: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Container(
-                height: size.height * 0.1,
-                width: size.width *0.5,
-                child: Text('tomato')),
+              height: size.height * 0.1,
+              width: size.width *0.5,
+              child: Row(
+                children: [
+                  Container(
+                      width: size.width *0.2,
+                      child: Text('tomato')),
+                  Container(
+                      height: size.height * 0.1,
+                      child: Image.asset('images/tomatoeicon.png')),
+                ],
+              ),
+            ),
           ),),
+          ReusableCard_2(colour: Colors.lightGreen[700],onPress: (){Navigator.pushNamed(context,MySplashScreen.id);},cardChild: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Container(
+              height: size.height * 0.1,
+              width: size.width *0.5,
+              child: Row(
+                children: [
+                  Container(
+                      width: size.width *0.2,
+                      child: Text('grape')),
+                  Container(
+                      height: size.height * 0.1,
+
+                      child: Image.asset('images/grape.png')),
+                ],
+              ),
+            ),
+          ),),//
         ],
       ),
     );
   }
 }
+/*
+*  Container(
+                                      height: size.height * 0.06,
+                                      child: Image.asset('images/feedback.png')),
+                                  Text('Feedback'),
+*
+* */

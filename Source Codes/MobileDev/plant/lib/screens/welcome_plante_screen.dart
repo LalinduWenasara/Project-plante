@@ -59,7 +59,7 @@ class _WelcomePlanteState extends State<WelcomePlante> {
                       child: TextButton(
                         style: ButtonStyle(
                           backgroundColor:
-                              MaterialStateProperty.all<Color>(kHarlequin),
+                              MaterialStateProperty.all<Color>(Colors.lightGreen),
                           foregroundColor:
                               MaterialStateProperty.all<Color>(Colors.white),
                           shape: MaterialStateProperty.all<OutlinedBorder>(

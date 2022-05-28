@@ -10,6 +10,7 @@ import 'dart:io' as io;
 import 'package:path/path.dart' as paths;
 import '../constants.dart';
 import 'solution_screen.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -26,6 +27,7 @@ class _HomeState extends State<Home> {
   late String value2;
   late var abc;
   late String downloadUrl;
+  bool spinLordShow = false;
 
   //late File img;
 
@@ -36,6 +38,9 @@ class _HomeState extends State<Home> {
     super.initState();
     loadMode().then((value) {
       setState(() {});
+    });
+    setState(() {
+      spinLordShow = false;
     });
   }
 
@@ -92,6 +97,7 @@ class _HomeState extends State<Home> {
   }
 
   pickGalleryImage() async {
+
     var img = await picker.pickImage(source: ImageSource.gallery);
     if (img == null) return null;
 
@@ -144,13 +150,18 @@ class _HomeState extends State<Home> {
         .onError((error, stackTrace) =>
             {print("Upload file path error ${error.toString()} ")});
     
-*/
+*/  setState(() {
+      spinLordShow = true;
+    });
     String fileName = paths.basename(image2up.path);
     Reference ref= FirebaseStorage.instance.ref().child('uploads').child('/$fileName');
     await ref.putFile(image2up);
     downloadUrl = await ref.getDownloadURL();
     changeScreens2();
    // print(downloadUrl);
+    setState(() {
+      spinLordShow = false;
+    });
 
   }
 
@@ -168,129 +179,132 @@ class _HomeState extends State<Home> {
         backgroundColor: kAppBarColor,
       ),
       backgroundColor: Colors.white,
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 200.0,
-            ),
-            SizedBox(
-              height: 5.0,
-            ),
-            /*
-            SizedBox(
-              height: 30.0,
-            ),
-            Center(
-              child: _loading
-                  ? Container(
-                      width: MediaQuery.of(context).size.width - 100,
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 50.0,
-                          )
-                        ],
-                      ),
-                    )
-                  : Container(
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 250.0,
-                            child: Image.file(image),
-                          ),
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          output != null
-                              ? Text(
-                                  '${output[0]['label']}',
-
-                                  style: TextStyle(
-                                      color: Colors.black38, fontSize: 15.0),
-                                )
-                              : Container(),
-                          SizedBox(
-                            height: 10.0,
-                          ),
-                          output != null
-                              ? Text(
-                                  '${output[0]['index']}',
-                                  style: TextStyle(
-                                      color: Colors.black38, fontSize: 15.0),
-                                )
-                              : Container(),
-                          output != null
-                              ? Text(
-                                  '${output[0]['confidence']}',
-                                  style: TextStyle(
-                                      color: Colors.black38, fontSize: 15.0),
-                                )
-                              : Container(),
-                        ],
-                      ),
-                    ),
-            ),*/
-            Container(
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      pickImage();
-                    },
-                    child: Container(
-                      child: Text(
-                        'Camera',
-                        style: TextStyle(color: Colors.white, fontSize: 10.0),
-                      ),
-                      width: MediaQuery.of(context).size.width,
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 25.0, vertical: 18.0),
-                      decoration: BoxDecoration(
-                          color: Colors.green,
-                          borderRadius: BorderRadius.circular(10.0)),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      pickGalleryImage();
-                    },
-                    child: Container(
-                      child: Text(
-                        'Gallery',
-                        style: TextStyle(color: Colors.white, fontSize: 10.0),
-                      ),
-                      width: MediaQuery.of(context).size.width,
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 25.0, vertical: 18.0),
-                      decoration: BoxDecoration(
-                          color: Colors.green,
-                          borderRadius: BorderRadius.circular(10.0)),
-                    ),
-                  ),
-/*
-                  ElevatedButton(onPressed: (){
-                    changeScreens2();
-                    /*if(abc < 0.6){
-                    Navigator.of(context).push(MaterialPageRoute(builder:(context)=>SolutionScreenLowPredict(value1:value2,image: image,),));}
-                    else{
-                    Navigator.of(context).push(MaterialPageRoute(builder:(context)=>SolutionScreen(value1:value2,image: image,),));
-                    }*/
-
-                  },child: Text("next") )*/
-                ],
+      body: ModalProgressHUD(
+        inAsyncCall: spinLordShow,
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 24.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 200.0,
               ),
-            )
-          ],
+              SizedBox(
+                height: 5.0,
+              ),
+              /*
+              SizedBox(
+                height: 30.0,
+              ),
+              Center(
+                child: _loading
+                    ? Container(
+                        width: MediaQuery.of(context).size.width - 100,
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 50.0,
+                            )
+                          ],
+                        ),
+                      )
+                    : Container(
+                        child: Column(
+                          children: [
+                            Container(
+                              height: 250.0,
+                              child: Image.file(image),
+                            ),
+                            SizedBox(
+                              height: 20.0,
+                            ),
+                            output != null
+                                ? Text(
+                                    '${output[0]['label']}',
+
+                                    style: TextStyle(
+                                        color: Colors.black38, fontSize: 15.0),
+                                  )
+                                : Container(),
+                            SizedBox(
+                              height: 10.0,
+                            ),
+                            output != null
+                                ? Text(
+                                    '${output[0]['index']}',
+                                    style: TextStyle(
+                                        color: Colors.black38, fontSize: 15.0),
+                                  )
+                                : Container(),
+                            output != null
+                                ? Text(
+                                    '${output[0]['confidence']}',
+                                    style: TextStyle(
+                                        color: Colors.black38, fontSize: 15.0),
+                                  )
+                                : Container(),
+                          ],
+                        ),
+                      ),
+              ),*/
+              Container(
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        pickImage();
+                      },
+                      child: Container(
+                        child: Text(
+                          'Camera',
+                          style: TextStyle(color: Colors.white, fontSize: 10.0),
+                        ),
+                        width: MediaQuery.of(context).size.width,
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 25.0, vertical: 18.0),
+                        decoration: BoxDecoration(
+                            color: Colors.lightGreen[700],
+                            borderRadius: BorderRadius.circular(10.0)),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        pickGalleryImage();
+                      },
+                      child: Container(
+                        child: Text(
+                          'Gallery',
+                          style: TextStyle(color: Colors.white, fontSize: 10.0),
+                        ),
+                        width: MediaQuery.of(context).size.width,
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 25.0, vertical: 18.0),
+                        decoration: BoxDecoration(
+                            color: Colors.lightGreen[700],
+                            borderRadius: BorderRadius.circular(10.0)),
+                      ),
+                    ),
+/*//style: ElevatedButton.styleFrom(primary: Colors.lightGreen[700]),
+                    ElevatedButton(onPressed: (){
+                      changeScreens2();
+                      /*if(abc < 0.6){
+                      Navigator.of(context).push(MaterialPageRoute(builder:(context)=>SolutionScreenLowPredict(value1:value2,image: image,),));}
+                      else{
+                      Navigator.of(context).push(MaterialPageRoute(builder:(context)=>SolutionScreen(value1:value2,image: image,),));
+                      }*/
+
+                    },child: Text("next") )*/
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

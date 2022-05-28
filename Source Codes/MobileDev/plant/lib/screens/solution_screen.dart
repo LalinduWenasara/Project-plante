@@ -72,6 +72,7 @@ class _SolutionScreenState extends State<SolutionScreen> {
                   child: Image.file(image),
                 ),
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(primary: Colors.lightGreen[700]),
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => Treatment(

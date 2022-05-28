@@ -82,8 +82,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 return Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Container(
+
+
                       height: size.height*0.2,
-                      color: kHarlequin,
+                      color: Colors.green.shade100,
                       child: Row(
                         children: [
                           Container(
@@ -91,7 +93,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
                               // images/comment.png
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(6.0),
+                                borderRadius: BorderRadius.circular(12.0),
                               ),
                               child: Container(
                                  padding: const EdgeInsets.all(6.0),

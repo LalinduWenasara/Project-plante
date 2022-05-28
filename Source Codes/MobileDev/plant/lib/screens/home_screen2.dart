@@ -135,6 +135,7 @@ class _Home5State extends State<Home5> {
                               width: size.width * 0.4,
                             ),
                             ElevatedButton(
+                                style: ElevatedButton.styleFrom(primary: Colors.lightGreen[700]),
                                 onPressed: () async {
                                   await signOutGoogle();
                                   setState(() {

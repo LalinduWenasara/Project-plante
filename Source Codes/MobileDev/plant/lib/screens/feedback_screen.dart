@@ -112,6 +112,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
             ),
           ),
           ElevatedButton(
+            style: ElevatedButton.styleFrom(primary: Colors.lightGreen[700]),
             onPressed: () {
               _firestore.collection('feedback').add({
                 'sender': userEmail,

@@ -27,7 +27,7 @@ class _PlantScreenState extends State<PlantScreen> {
               borderRadius: BorderRadius.circular(20),
             ),
           ),
-          ReusableCard_2(colour: Colors.amber,onPress: (){Navigator.pushNamed(context,MySplashScreen.id);},cardChild: Text('Tomato'),),
+          ReusableCard_2(colour: Colors.lightGreen[700],onPress: (){Navigator.pushNamed(context,MySplashScreen.id);},cardChild: Text('Tomato'),),
         ],
       ),
     );

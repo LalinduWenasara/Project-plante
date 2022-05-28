@@ -54,7 +54,14 @@ class _TreatmentState extends State<Treatment> {
           title: Text(value1),
           backgroundColor: kAppBarColor,
         ),
-        body: Text('OOps Connection Error'),
+        body: Padding(
+          padding: const EdgeInsets.all(100.0),
+          child: Column(
+            children: [
+              Container(child: Text('OOps Connection Error',textAlign: TextAlign.center,)),
+            ],
+          ),
+        ),
       );
   }
 }

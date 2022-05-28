@@ -203,6 +203,7 @@ class _SetProfileScreenState extends State<SetProfileScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(primary: Colors.lightGreen[700]),
                   onPressed: () {
                     if(displayName == null || Address == null || NIC == null || mobileNu == null){
                       print("Ssss");

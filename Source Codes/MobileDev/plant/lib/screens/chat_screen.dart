@@ -112,7 +112,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       //   physics: NeverScrollableScrollPhysics(),
 
                       children: snapshot.data.docs.map((document) {
-                        if (document['sender'] == "lwenasara63@gmail.com") {
+                        if (document['sender'] == useremail2) {
                           return Column(
                             children: [
                               Container(
@@ -153,7 +153,7 @@ class _ChatScreenState extends State<ChatScreen> {
                               ),
                               Container(
                                 decoration: BoxDecoration(
-                                  color: Colors.blue.withOpacity(0.1),
+                                  color: Colors.lightGreen.withOpacity(0.5),
                                   borderRadius: BorderRadius.circular(40),
                                 ),
                                 padding: EdgeInsets.only(
@@ -215,6 +215,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         ),
                       ),
                       ElevatedButton(
+                        style: ElevatedButton.styleFrom(primary: Colors.lightGreen[700]),
                         onPressed: () {
                           print('****************');
                           print(messagetext);

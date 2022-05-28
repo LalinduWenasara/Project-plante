@@ -104,6 +104,7 @@ class _SolutionScreenLowPredictState extends State<SolutionScreenLowPredict> {
                 /* Text(downloadURL),
                 Text(userEmail),*/
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(primary: Colors.lightGreen[700]),
                   onPressed: () {
                     _firestore.collection('uploads').add({
                       'downloadURL': downloadURL,

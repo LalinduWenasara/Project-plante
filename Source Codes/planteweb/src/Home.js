@@ -27,6 +27,7 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import { useNavigate } from 'react-router-dom';
+import image2 from './images/plant-diseases.jpg';
 
 
 ChartJS.register(
@@ -49,6 +50,9 @@ export const options = {
 };
 
 const labels = ["very_dissatisfied", "dissatisfied", "neutral", "satisfied", "very_satisfied"];
+
+
+
 /*
 export const data = {
   labels,
@@ -61,16 +65,6 @@ export const data = {
   ]
 };
 */
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -105,16 +99,32 @@ function App2() {
 
   const homestyle = {
     backgroundColor: `#f8fcf9`,
+
+
   };
 
 
   const welcomestyle = {
 
-    height:"500px",
-    fontFamily: "Arial"
+    height: "500px",
+    fontFamily: "Arial",
+    fontSize: "150%",
 
   };
 
+  const container1style = {
+
+    height: "200px",
+    fontFamily: "Arial"
+
+  };
+  const containerimgstyle = {
+
+    
+    fontFamily: "Arial",
+    width:"100%",
+    optically:"0.1"
+  };
 
 
 
@@ -125,7 +135,7 @@ function App2() {
 
 
   var fb1 = 0, fb2 = 0, fb3 = 0, fb4 = 0, fb5 = 0, nullnum = 0;
-
+  var solutioncount = 0;
   let navigate = useNavigate();
 
 
@@ -203,14 +213,6 @@ function App2() {
 
 
 
-
-
-
-
-
-
-
-
   /* this things need move to web page */
 
   const [feedbackinfo, setFeedbackInfo] = useState([]);
@@ -224,16 +226,19 @@ function App2() {
   ///feedback
 
   const [reply2info, setreply2Info] = useState([]);
+
+
+  const [solutionuploadsInfo, setsolutionuploadsInfo] = useState([]);
   //------
   useEffect(() => {
-
-    const getFeedbacks = async () => {
-      const data = await getDocs(feedbackCollectionREf);
-      // console.log(data);
-      setFeedbackInfo(data.docs.map(((doc) => ({ ...doc.data(), id: doc.id }))))
-
-    }
-    getFeedbacks()
+    /*
+        const getFeedbacks = async () => {
+          const data = await getDocs(feedbackCollectionREf);
+          // console.log(data);
+          setFeedbackInfo(data.docs.map(((doc) => ({ ...doc.data(), id: doc.id }))))
+    
+        }
+        getFeedbacks()*/
     //feedback sbaps
     onSnapshot(collection(db, "feedback"), (snapshot) => {
       setreply2Info(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
@@ -250,12 +255,20 @@ function App2() {
     }
     getUploadimageInfo()
 
-   
+
 
     onSnapshot(collection(db, "PlantPathologist"), (snapshot) => {
       plantPathologistInfo(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
     })
     console.log(plantPathologistinfo);
+
+
+
+    onSnapshot(collection(db, "uploads"), (snapshot) => {
+      setsolutionuploadsInfo(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+    })
+    console.log(plantPathologistinfo);
+
 
 
   }, [])
@@ -276,53 +289,34 @@ function App2() {
           <div><h1>
 
 
-            {reply2info.map((fdb) => {
+            {solutionuploadsInfo.map((solutionupload) => {/* if (solutionupload.time == 1) { ++fb1;}*/solutioncount++;}  ) }
 
-              if (fdb.feedback == 1) {
-                ++fb1;
-              } else if (fdb.feedback == 2) {
-                ++fb2;
-              }
-              else if (fdb.feedback == 3) {
-                ++fb3;
-              }
-              else if (fdb.feedback == 4) {
-                ++fb4;
-              }
-              else if (fdb.feedback == 5) {
-                ++fb5;
-              }
-              else if (fdb.feedback == null) {
-                ++nullnum;
-              }
-
-            }
+            {reply2info.map((fdb) => {if (fdb.feedback == 1) {++fb1;} else if (fdb.feedback == 2) { ++fb2;}else if (fdb.feedback == 3) { ++fb3;}else if (fdb.feedback == 4) {++fb4;}else if (fdb.feedback == 5) {++fb5;}else if (fdb.feedback == null) { ++nullnum;}  } )}
 
 
 
 
 
 
-            )
-
-
-
-
-            }
           </h1>
-          {plantPathologistinfo.map((userinf) => {
-            if(userinf.emailAddress==user?.email)
-            return (<div style={welcomestyle}>
-              {""}
-              <h3>Welcome   &nbsp;&nbsp;
-                {userinf.firstname} &nbsp;{userinf.Lastname} &nbsp;
-                you have xnum detections today
-              </h3>
-              
-            
-            </div>)
-          })}
-            
+          <div class="container" style={container1style}>
+  
+</div>
+            {plantPathologistinfo.map((userinf) => {
+              if (userinf.emailAddress == user?.email)
+                return (<div style={welcomestyle}>
+                  {""}
+                  <h3 style={welcomestyle}>Welcome   &nbsp;&nbsp;
+                    {userinf.firstname} &nbsp;{userinf.Lastname} <br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;you have &nbsp;{solutioncount} detections today
+                  </h3>
+
+
+                </div>)
+            })}
+            <img src={image2} class="img-fluid" alt="Responsive image" style={containerimgstyle}></img>
+            <div class="container" style={container1style}>
+  </div>
             <div class="container-sm">
               <Bar options={options} data={{
                 labels,

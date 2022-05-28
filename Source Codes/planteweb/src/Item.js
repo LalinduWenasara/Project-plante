@@ -36,6 +36,10 @@ const center = {
 
 
 
+
+
+
+
 function Item() {
 
   let { itemid } = useParams();
@@ -51,14 +55,22 @@ function Item() {
   });
   //Check logged in or not-------------------------------------------------------------------
 
+  const [WeatherData,setWeatherData]=useState([]);
+  function getWeatherFromApiAsync(x,y) {
+    var mylink='https://api.openweathermap.org/data/2.5/onecall?lat='+x+'&lon='+y+'&exclude=hourly,daily&appid=c49d22e6566a98cf13ef8904065a6193'
+    return fetch(mylink)
+    .then((response) => response.json())
+    .then((responseJson) => {
+     return responseJson;
+      //setWeatherData(responseJson);
 
-
-
-
-
-
-
-
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+ }
+//https://api.openweathermap.org/data/2.5/onecall?lat=6.8213291&lon=80.0415729&exclude=hourly,daily&appid=c49d22e6566a98cf13ef8904065a6193
+//a32e9315ac8c2587b4313752a387651a
 
   const [newMessage, setMessage] = useState([]);
   const [newReciver, setReciver] = useState([]);
@@ -149,8 +161,13 @@ function Item() {
       setreply2Info(snapshot.docs.map((doc)=>({...doc.data(), id: doc.id})))
     })
     console.log(reply2info);
-
-  
+    /*
+    var o=getWeatherFromApiAsync(6.8213291,80.0415729);
+    setWeatherData(o);
+    console.log("checkkkkkkk");
+    console.log(o);
+     */
+    
 
 
   }, []);
@@ -164,9 +181,10 @@ const { isLoaded, loadError } = useLoadScript({
 if (loadError) return "Error";
 if (!isLoaded) return "Loading...";
 //--------
-
-
-
+/*
+getWeatherFromApiAsync(6.8213291,80.0415729);
+console.log("mmm see");
+console.log(WeatherData);*/
 
 
 
@@ -178,8 +196,12 @@ if (!isLoaded) return "Loading...";
       {uploadinfo.map((up) => {
         var myTime = up.time;
         var foo = myTime.toDate().toString();
+        
+       
+      
 
         if (up.id == itemid) {
+         
           return (<div>
             <div class="row">
 
@@ -197,7 +219,7 @@ if (!isLoaded) return "Loading...";
                     <p class="card-text"><small class="text-muted">{foo}</small></p>
                   </div>
                 </div>
-
+                <h5>&nbsp;&nbsp;</h5>
                 <button type="button" class="btn btn-outline-danger"
                   onClick={() => {
                   //  deleteUploads(up.id);
@@ -253,8 +275,30 @@ if (!isLoaded) return "Loading...";
               <div class="col-sm-4">
                     
      <h1>
-                  comments
 
+
+     <h5>
+   
+               
+              </h5>
+
+                  comments
+                  {/*WeatherData.main && (
+                <div className="city">
+                    <h2 className="city-name">
+                        <span>{WeatherData.name}</span>
+                        <sup>{WeatherData.sys.country}</sup>
+                    </h2>
+                    <div className="city-temp">
+                        {Math.round(WeatherData.main.temp)}
+                        <sup>&deg;C</sup>
+                    </div>
+                    <div className="info">
+                        <img className="city-icon" src={`https://openweathermap.org/img/wn/${WeatherData.WeatherData[0].icon}@2x.png`} alt={WeatherData.WeatherData[0].description} />
+                        <p>{WeatherData.weather[0].description}</p>
+                    </div>
+                </div>
+                  )*/}
 
                   
                 </h1>
@@ -280,9 +324,9 @@ if (!isLoaded) return "Loading...";
                   
                  }} />
 
+<h5>&nbsp;&nbsp;</h5>
 
-
-                <button class="btn btn-outline-danger" 
+                <button class="btn btn-outline-success" 
                 /*onClick={createUser
                 
                 

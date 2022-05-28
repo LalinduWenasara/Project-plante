@@ -19,7 +19,6 @@ import { useNavigate } from 'react-router-dom';
 import image from './images/fall.svg';
 
 
-
 function SignupPage() {
 
     const mystylebackground = {

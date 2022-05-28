@@ -108,7 +108,7 @@ return (
               <p class="card-text"><small class="text-muted">{foo}</small></p>
             </div>
           </div>
-          <button type="button" class="btn btn-outline-info"
+          <button type="button" class="btn btn-outline-success"
             onClick={() => {
               navigate(`/item/${up.id}`);
 

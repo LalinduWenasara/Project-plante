@@ -99,6 +99,7 @@ function App2() {
 
   const homestyle = {
     backgroundColor: `#f8fcf9`,
+    marginTop:'5%'
 
 
   };

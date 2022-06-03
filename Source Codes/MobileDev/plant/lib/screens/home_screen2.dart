@@ -25,6 +25,7 @@ class Home5 extends StatefulWidget {
 class _Home5State extends State<Home5> {
   final _auth = FirebaseAuth.instance;
   String userEmail, testU1="Welcome",userImg2, testU2, testU3,displayname2;
+  //setting  a default image url if user image url is not available
   String  userImage="https://firebasestorage.googleapis.com/v0/b/iot2-950b2.appspot.com/o/mobapp%2F194938.png?alt=media&token=7e6346d3-b58e-411e-85e7-5df9305a3ec2";
   Size size;
 
@@ -173,11 +174,18 @@ class _Home5State extends State<Home5> {
                 ),*/
               ),
             ),
+            SizedBox(
+              width: size.width * 0.05,
+            ),
+
             Container(
               height: size.height * 0.4,
               width: size.width,
               child: Column(
                 children: [
+                  SizedBox(
+                    width: size.width * 0.05,
+                  ),
                   Center(
                       child: Text(
                     'Services',
@@ -273,7 +281,7 @@ class _Home5State extends State<Home5> {
                                 children: [
                                   Container(
                                       height: size.height * 0.06,
-                                      child: Image.asset('images/feedback.png')),
+                                      child: Image.asset('images/feeedback1.png')),
                                   Text('Feedback'),
                                 ],
                               )),
@@ -293,7 +301,7 @@ class _Home5State extends State<Home5> {
                                 children: [
                                   Container(
                                       height: size.height * 0.06,
-                                      child: Image.asset('images/notification.png')),
+                                      child: Image.asset('images/notification1.png')),
                                   Text('Notification'),
                                 ],
                               )),

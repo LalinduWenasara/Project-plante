@@ -13,6 +13,7 @@ import {
 import Item from './Item';
 import ErrorPage from './ErrorPage';
 import SignupPage from './SignUpPage';
+import Chat from './Chat';
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/solution" element={<Solution />} />
         <Route path="/item/:itemid" element={<Item />} />
+        <Route path="/chat" element={<Chat />} />
         <Route path="*" element={<ErrorPage />} />
         </Routes>
     </div>

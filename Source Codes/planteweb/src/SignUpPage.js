@@ -17,6 +17,7 @@ import { Button, Alert } from 'bootstrap';
 //import style from './stylemod.css'
 import { useNavigate } from 'react-router-dom';
 import image from './images/fall.svg';
+//import validator from 'validator'
 
 
 function SignupPage() {
@@ -42,13 +43,31 @@ function SignupPage() {
     const [Lastname, setLastName] = useState("");
     const [Mobilenumber, setMobilenumber] = useState("");
     const plantPathologistCollectionREf = collection(db, "PlantPathologist");
-    
+
     const createUser = async () => {
-        await addDoc(plantPathologistCollectionREf, { firstname: firstname, Lastname: Lastname, Mobilenumber:Mobilenumber, emailAddress: emailAddress});
+        await addDoc(plantPathologistCollectionREf, { firstname: firstname, Lastname: Lastname, Mobilenumber: Mobilenumber, emailAddress: emailAddress });
+
+    }
+
+/*
+    const [emailvalError, setEmailvalError] = useState('')
+    const validateEmail = (e) => {
+      var email = e.target.value
     
+      if (validator.isEmail(email)) {
+        setEmailError('Valid Email :)')
+      } else {
+        setEmailError('Enter valid Email!')
       }
+    }
+
+
+*/
+
+
 
     const register = async () => {
+
         clearErrors();
         try {
             const user = await createUserWithEmailAndPassword(
@@ -57,16 +76,16 @@ function SignupPage() {
                 authPassword
             );
             createUser();
-            
+
             navigate(`/`);
             console.log(user);
         } catch (error) {
             switch (error.code) {
                 case "auth/invalid-email":
-                    setEmailError(error.message);
+                    setEmailError("please enter valid email address");
                     break;
                 case "auth/weak-password":
-                    setPasswordError(error.message);
+                    setPasswordError("Password should be at least 6 characters (Enter a strong password)");
                     break;
             }
 
@@ -120,11 +139,13 @@ function SignupPage() {
                                         </div>
                                     </div>
                                 </div>
+                                
                                 <div class="row">
                                     <div class="col-sm">
                                         <div class="form-group">
                                             <label for="email">Email</label>
-                                            <input class="form-control"
+                                            
+                                            <input class="form-control" type="email"
                                                 onChange={(event) => {
                                                     setemailAddress(event.target.value);
                                                 }}
@@ -147,8 +168,8 @@ function SignupPage() {
                                     <div class="col-sm">
                                         <div class="form-group">
                                             <label for="password">Password</label>
-                                            < input class="form-control"
-                                                onChange={(event) => {
+                                            < input class="form-control" type="password"
+                                                onChange={(event) => { 
                                                     setauthPassword(event.target.value);
                                                 }}
                                             />
@@ -158,7 +179,7 @@ function SignupPage() {
                                     <div class="col-sm">
                                         <div class="form-group">
                                             <label for="password">Confirm Password</label>
-                                            < input class="form-control"
+                                            < input class="form-control" type="password"
                                                 onChange={(event) => {
                                                     setauthPassword(event.target.value);
                                                 }}

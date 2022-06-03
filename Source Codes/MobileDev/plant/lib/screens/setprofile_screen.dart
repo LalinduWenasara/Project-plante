@@ -61,6 +61,7 @@ class _SetProfileScreenState extends State<SetProfileScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+
       body:Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(

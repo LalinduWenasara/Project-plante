@@ -42,7 +42,8 @@
 
 .body{
   font-family: 'Poppins', sans-serif;
-  background-color: #00ac96;
+ 
+  background-color:'red' ;
 }
 .content{
   margin: 8%;
@@ -100,7 +101,7 @@ nav{
   min-height: 10vh;
   background: #fff;
   color: #5cb874;
-  
+ 
 }
 
 .navLinks{
@@ -116,4 +117,5 @@ nav{
     color: #222222;
     white-space: nowrap;
     transition: 0.3s;
+    
 }

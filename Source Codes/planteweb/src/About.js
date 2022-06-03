@@ -7,8 +7,8 @@ function About() {
   
   return (
     <div className="App">
-      <div style={    {backgroundColor: `#f8fcf9`,}}>
-      <h1>About Page</h1>
+      <div style={    {backgroundColor: `#f8fcf9`,  marginTop:'5%'}}>
+      <h1>About </h1>
 
      <h5>planting is something we should encourage our society to do. </h5> 
      <h5>Plant diseases are a common problem for anyone who loves to plant.

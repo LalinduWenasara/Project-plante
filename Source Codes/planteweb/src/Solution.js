@@ -25,16 +25,7 @@ function Solution() {
   
   };
 
-  const stylecardimg = {
-    
-    
-    height: "400px",
-    objectFit: "cover",
-    borderRadious:"10px",
- 
-
-  
-  };
+  const stylecardimg = {  height: "400px",objectFit: "cover", borderRadious:"10px",};
 
 
 
@@ -80,15 +71,14 @@ function Solution() {
 
     
     <div className="App">
-    <div class="clearfix" style={    {backgroundColor: `#f8fcf9`,}}>
-      <h1>Solution Page</h1>
+    <div class="clearfix" style={    {backgroundColor: `#f8fcf9`,marginTop:'5%'}}>
+      <h1>Solutions</h1>
 
       
 
       
-   
       <div class="row row-cols-auto">
-{uploadinfo.map((up) => {
+      {uploadinfo.map((up) => {
 
 var myTime = up.time;
 console.log(uploadinfo);
@@ -140,26 +130,12 @@ return (
 
 
 
-
-
-
-
-
-
-
-
 </div>
-
-
 
     </div>
   )
   
-  
-  
-  
-  
-  
+
   ;
   
 
